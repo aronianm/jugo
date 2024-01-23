@@ -1,0 +1,534 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		615D33912B5CCDFD00CAF7E5 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33902B5CCDFD00CAF7E5 /* Contact.swift */; };
+		615D33982B5CCED100CAF7E5 /* ContactListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33972B5CCED100CAF7E5 /* ContactListView.swift */; };
+		615D339A2B5CD28D00CAF7E5 /* CreateMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33992B5CD28D00CAF7E5 /* CreateMatchView.swift */; };
+		615D339C2B5CD3CD00CAF7E5 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D339B2B5CD3CD00CAF7E5 /* Environment.swift */; };
+		615D33A22B5D6A3600CAF7E5 /* ChallengeNonUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33A12B5D6A3600CAF7E5 /* ChallengeNonUserView.swift */; };
+		615D33A42B5F39D200CAF7E5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33A32B5F39D200CAF7E5 /* User.swift */; };
+		615D33A62B5F4F1B00CAF7E5 /* MatchupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33A52B5F4F1B00CAF7E5 /* MatchupsView.swift */; };
+		615D33A82B5F4F3600CAF7E5 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33A72B5F4F3600CAF7E5 /* HistoryView.swift */; };
+		615D33AB2B5F4F7400CAF7E5 /* Text+TitleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33AA2B5F4F7400CAF7E5 /* Text+TitleStyle.swift */; };
+		615D33AD2B5F512100CAF7E5 /* AppDependancies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33AC2B5F512100CAF7E5 /* AppDependancies.swift */; };
+		615D33AF2B5F5FA800CAF7E5 /* Matchup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33AE2B5F5FA800CAF7E5 /* Matchup.swift */; };
+		61B5B5C82B5C6DCD00B05615 /* JogoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5C72B5C6DCD00B05615 /* JogoApp.swift */; };
+		61B5B5CA2B5C6DCD00B05615 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5C92B5C6DCD00B05615 /* ContentView.swift */; };
+		61B5B5CC2B5C6DCE00B05615 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61B5B5CB2B5C6DCE00B05615 /* Assets.xcassets */; };
+		61B5B5D02B5C6DCE00B05615 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61B5B5CF2B5C6DCE00B05615 /* Preview Assets.xcassets */; };
+		61B5B5D92B5C6E1200B05615 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5D82B5C6E1200B05615 /* LoginView.swift */; };
+		61B5B5DB2B5C6E5B00B05615 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5DA2B5C6E5B00B05615 /* AuthenticationViewModel.swift */; };
+		61B5B5DD2B5C72FD00B05615 /* SignUpFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5DC2B5C72FD00B05615 /* SignUpFormView.swift */; };
+		61B5B5E02B5C73B800B05615 /* SimpleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5DF2B5C73B800B05615 /* SimpleInput.swift */; };
+		61CDB67C2B5CA90100CD347B /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDB67B2B5CA90100CD347B /* AppView.swift */; };
+		61CDB67F2B5CAA3B00CD347B /* HealthDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDB67E2B5CAA3B00CD347B /* HealthDataManager.swift */; };
+		61CDB68A2B5CB28800CD347B /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDB6892B5CB28800CD347B /* CircularProgressView.swift */; };
+		61CDB68E2B5CBAE300CD347B /* MatchupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDB68D2B5CBAE300CD347B /* MatchupManager.swift */; };
+		61CDB6922B5CBBDF00CD347B /* Opponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDB6912B5CBBDF00CD347B /* Opponent.swift */; };
+		61CDB6942B5CBDD200CD347B /* CurrentMatchupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDB6932B5CBDD200CD347B /* CurrentMatchupView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		615D33902B5CCDFD00CAF7E5 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		615D33972B5CCED100CAF7E5 /* ContactListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListView.swift; sourceTree = "<group>"; };
+		615D33992B5CD28D00CAF7E5 /* CreateMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMatchView.swift; sourceTree = "<group>"; };
+		615D339B2B5CD3CD00CAF7E5 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		615D33A12B5D6A3600CAF7E5 /* ChallengeNonUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeNonUserView.swift; sourceTree = "<group>"; };
+		615D33A32B5F39D200CAF7E5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		615D33A52B5F4F1B00CAF7E5 /* MatchupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupsView.swift; sourceTree = "<group>"; };
+		615D33A72B5F4F3600CAF7E5 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		615D33AA2B5F4F7400CAF7E5 /* Text+TitleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+TitleStyle.swift"; sourceTree = "<group>"; };
+		615D33AC2B5F512100CAF7E5 /* AppDependancies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependancies.swift; sourceTree = "<group>"; };
+		615D33AE2B5F5FA800CAF7E5 /* Matchup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matchup.swift; sourceTree = "<group>"; };
+		61B5B5C42B5C6DCD00B05615 /* Jogo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jogo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		61B5B5C72B5C6DCD00B05615 /* JogoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JogoApp.swift; sourceTree = "<group>"; };
+		61B5B5C92B5C6DCD00B05615 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		61B5B5CB2B5C6DCE00B05615 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		61B5B5CD2B5C6DCE00B05615 /* Jogo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Jogo.entitlements; sourceTree = "<group>"; };
+		61B5B5CF2B5C6DCE00B05615 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		61B5B5D82B5C6E1200B05615 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		61B5B5DA2B5C6E5B00B05615 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		61B5B5DC2B5C72FD00B05615 /* SignUpFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFormView.swift; sourceTree = "<group>"; };
+		61B5B5DF2B5C73B800B05615 /* SimpleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleInput.swift; sourceTree = "<group>"; };
+		61CDB67B2B5CA90100CD347B /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		61CDB67E2B5CAA3B00CD347B /* HealthDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataManager.swift; sourceTree = "<group>"; };
+		61CDB6892B5CB28800CD347B /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		61CDB68D2B5CBAE300CD347B /* MatchupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupManager.swift; sourceTree = "<group>"; };
+		61CDB6912B5CBBDF00CD347B /* Opponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opponent.swift; sourceTree = "<group>"; };
+		61CDB6932B5CBDD200CD347B /* CurrentMatchupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentMatchupView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		61B5B5C12B5C6DCD00B05615 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		615D338C2B5CCDA400CAF7E5 /* Matchups */ = {
+			isa = PBXGroup;
+			children = (
+				615D33992B5CD28D00CAF7E5 /* CreateMatchView.swift */,
+				615D33A12B5D6A3600CAF7E5 /* ChallengeNonUserView.swift */,
+				615D33A52B5F4F1B00CAF7E5 /* MatchupsView.swift */,
+				615D33A72B5F4F3600CAF7E5 /* HistoryView.swift */,
+			);
+			path = Matchups;
+			sourceTree = "<group>";
+		};
+		615D338F2B5CCDF300CAF7E5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				615D33902B5CCDFD00CAF7E5 /* Contact.swift */,
+				615D33A32B5F39D200CAF7E5 /* User.swift */,
+				615D33AE2B5F5FA800CAF7E5 /* Matchup.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		615D33922B5CCE2600CAF7E5 /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				615D33972B5CCED100CAF7E5 /* ContactListView.swift */,
+			);
+			path = Contact;
+			sourceTree = "<group>";
+		};
+		615D33A92B5F4F5D00CAF7E5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				615D33AA2B5F4F7400CAF7E5 /* Text+TitleStyle.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		61B5B5BB2B5C6DCD00B05615 = {
+			isa = PBXGroup;
+			children = (
+				61B5B5C62B5C6DCD00B05615 /* Jogo */,
+				61B5B5C52B5C6DCD00B05615 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		61B5B5C52B5C6DCD00B05615 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				61B5B5C42B5C6DCD00B05615 /* Jogo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		61B5B5C62B5C6DCD00B05615 /* Jogo */ = {
+			isa = PBXGroup;
+			children = (
+				615D338F2B5CCDF300CAF7E5 /* Models */,
+				61CDB68C2B5CBAD800CD347B /* Managers */,
+				61B5B5D62B5C6DF900B05615 /* View */,
+				61B5B5C72B5C6DCD00B05615 /* JogoApp.swift */,
+				61B5B5C92B5C6DCD00B05615 /* ContentView.swift */,
+				61B5B5CB2B5C6DCE00B05615 /* Assets.xcassets */,
+				61B5B5CD2B5C6DCE00B05615 /* Jogo.entitlements */,
+				61B5B5CE2B5C6DCE00B05615 /* Preview Content */,
+				615D339B2B5CD3CD00CAF7E5 /* Environment.swift */,
+				615D33AC2B5F512100CAF7E5 /* AppDependancies.swift */,
+			);
+			path = Jogo;
+			sourceTree = "<group>";
+		};
+		61B5B5CE2B5C6DCE00B05615 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				61B5B5CF2B5C6DCE00B05615 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		61B5B5D62B5C6DF900B05615 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				615D33A92B5F4F5D00CAF7E5 /* Extensions */,
+				615D33922B5CCE2600CAF7E5 /* Contact */,
+				615D338C2B5CCDA400CAF7E5 /* Matchups */,
+				61CDB67A2B5CA8AD00CD347B /* App */,
+				61B5B5DE2B5C73AD00B05615 /* Helpers */,
+				61B5B5D72B5C6DFD00B05615 /* Auth */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		61B5B5D72B5C6DFD00B05615 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				61B5B5D82B5C6E1200B05615 /* LoginView.swift */,
+				61B5B5DA2B5C6E5B00B05615 /* AuthenticationViewModel.swift */,
+				61B5B5DC2B5C72FD00B05615 /* SignUpFormView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		61B5B5DE2B5C73AD00B05615 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				61B5B5DF2B5C73B800B05615 /* SimpleInput.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		61CDB67A2B5CA8AD00CD347B /* App */ = {
+			isa = PBXGroup;
+			children = (
+				61CDB6882B5CB27600CD347B /* Helpers */,
+				61CDB67B2B5CA90100CD347B /* AppView.swift */,
+				61CDB67E2B5CAA3B00CD347B /* HealthDataManager.swift */,
+				61CDB6932B5CBDD200CD347B /* CurrentMatchupView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		61CDB6882B5CB27600CD347B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				61CDB6892B5CB28800CD347B /* CircularProgressView.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		61CDB68C2B5CBAD800CD347B /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				61CDB68D2B5CBAE300CD347B /* MatchupManager.swift */,
+				61CDB6912B5CBBDF00CD347B /* Opponent.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		61B5B5C32B5C6DCD00B05615 /* Jogo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61B5B5D32B5C6DCE00B05615 /* Build configuration list for PBXNativeTarget "Jogo" */;
+			buildPhases = (
+				61B5B5C02B5C6DCD00B05615 /* Sources */,
+				61B5B5C12B5C6DCD00B05615 /* Frameworks */,
+				61B5B5C22B5C6DCD00B05615 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Jogo;
+			productName = Jogo;
+			productReference = 61B5B5C42B5C6DCD00B05615 /* Jogo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		61B5B5BC2B5C6DCD00B05615 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1510;
+				LastUpgradeCheck = 1510;
+				TargetAttributes = {
+					61B5B5C32B5C6DCD00B05615 = {
+						CreatedOnToolsVersion = 15.1;
+					};
+				};
+			};
+			buildConfigurationList = 61B5B5BF2B5C6DCD00B05615 /* Build configuration list for PBXProject "Jogo" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 61B5B5BB2B5C6DCD00B05615;
+			productRefGroup = 61B5B5C52B5C6DCD00B05615 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				61B5B5C32B5C6DCD00B05615 /* Jogo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		61B5B5C22B5C6DCD00B05615 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61B5B5D02B5C6DCE00B05615 /* Preview Assets.xcassets in Resources */,
+				61B5B5CC2B5C6DCE00B05615 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		61B5B5C02B5C6DCD00B05615 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				615D33A22B5D6A3600CAF7E5 /* ChallengeNonUserView.swift in Sources */,
+				61B5B5DD2B5C72FD00B05615 /* SignUpFormView.swift in Sources */,
+				61CDB68A2B5CB28800CD347B /* CircularProgressView.swift in Sources */,
+				61CDB68E2B5CBAE300CD347B /* MatchupManager.swift in Sources */,
+				615D33AF2B5F5FA800CAF7E5 /* Matchup.swift in Sources */,
+				615D33AD2B5F512100CAF7E5 /* AppDependancies.swift in Sources */,
+				615D33982B5CCED100CAF7E5 /* ContactListView.swift in Sources */,
+				615D33A82B5F4F3600CAF7E5 /* HistoryView.swift in Sources */,
+				61B5B5DB2B5C6E5B00B05615 /* AuthenticationViewModel.swift in Sources */,
+				61B5B5E02B5C73B800B05615 /* SimpleInput.swift in Sources */,
+				61CDB67C2B5CA90100CD347B /* AppView.swift in Sources */,
+				615D33A42B5F39D200CAF7E5 /* User.swift in Sources */,
+				615D33AB2B5F4F7400CAF7E5 /* Text+TitleStyle.swift in Sources */,
+				61B5B5D92B5C6E1200B05615 /* LoginView.swift in Sources */,
+				61CDB67F2B5CAA3B00CD347B /* HealthDataManager.swift in Sources */,
+				615D339A2B5CD28D00CAF7E5 /* CreateMatchView.swift in Sources */,
+				61CDB6922B5CBBDF00CD347B /* Opponent.swift in Sources */,
+				61B5B5CA2B5C6DCD00B05615 /* ContentView.swift in Sources */,
+				615D339C2B5CD3CD00CAF7E5 /* Environment.swift in Sources */,
+				61B5B5C82B5C6DCD00B05615 /* JogoApp.swift in Sources */,
+				615D33A62B5F4F1B00CAF7E5 /* MatchupsView.swift in Sources */,
+				615D33912B5CCDFD00CAF7E5 /* Contact.swift in Sources */,
+				61CDB6942B5CBDD200CD347B /* CurrentMatchupView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		61B5B5D12B5C6DCE00B05615 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		61B5B5D22B5C6DCE00B05615 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		61B5B5D42B5C6DCE00B05615 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Jogo/Jogo.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Jogo/Preview Content\"";
+				DEVELOPMENT_TEAM = B5BDAQU6WD;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSContactsUsageDescription = "We need access to your contacts to display them in the app.";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Multiple commands produce '/Users/michaelaronianaronian/Library/Developer/Xcode/DerivedData/Jogo-aqoovepjqxqpfqbhfxcbllbnrpgw/Build/Products/Release-iphonesimulator/Jogo.app/Info.plist'\nWe need access to health data for tracking your activity.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need access to health data for tracking your activity.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = jen.sunset.Jogo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		61B5B5D52B5C6DCE00B05615 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Jogo/Jogo.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Jogo/Preview Content\"";
+				DEVELOPMENT_TEAM = B5BDAQU6WD;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSContactsUsageDescription = "We need access to your contacts to display them in the app.";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Multiple commands produce '/Users/michaelaronianaronian/Library/Developer/Xcode/DerivedData/Jogo-aqoovepjqxqpfqbhfxcbllbnrpgw/Build/Products/Release-iphonesimulator/Jogo.app/Info.plist'\nWe need access to health data for tracking your activity.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need access to health data for tracking your activity.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = jen.sunset.Jogo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		61B5B5BF2B5C6DCD00B05615 /* Build configuration list for PBXProject "Jogo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61B5B5D12B5C6DCE00B05615 /* Debug */,
+				61B5B5D22B5C6DCE00B05615 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		61B5B5D32B5C6DCE00B05615 /* Build configuration list for PBXNativeTarget "Jogo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61B5B5D42B5C6DCE00B05615 /* Debug */,
+				61B5B5D52B5C6DCE00B05615 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 61B5B5BC2B5C6DCD00B05615 /* Project object */;
+}

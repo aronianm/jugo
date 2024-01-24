@@ -13,9 +13,6 @@ struct CircularProgressView: View {
     var color:Color = Color.blue
     var body: some View {
         HStack {
-            Text("\(Int(progress * 100))%")
-                .font(.title)
-            
             ZStack {
                 Circle()
                     .stroke(lineWidth: 20.0)

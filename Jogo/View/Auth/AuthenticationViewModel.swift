@@ -29,7 +29,7 @@ class AuthenticationViewModel: ObservableObject {
         UserDefaults.standard.synchronize()
     }
 
-    private func handleLoginSuccess() {
+    func handleLoginSuccess() {
         self.isLoggedIn = true
         self.current_user()
     }

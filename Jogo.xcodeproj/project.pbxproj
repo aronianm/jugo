@@ -18,6 +18,11 @@
 		615D33AB2B5F4F7400CAF7E5 /* Text+TitleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33AA2B5F4F7400CAF7E5 /* Text+TitleStyle.swift */; };
 		615D33AD2B5F512100CAF7E5 /* AppDependancies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33AC2B5F512100CAF7E5 /* AppDependancies.swift */; };
 		615D33AF2B5F5FA800CAF7E5 /* Matchup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33AE2B5F5FA800CAF7E5 /* Matchup.swift */; };
+		615D33B12B60959100CAF7E5 /* CheckUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33B02B60959100CAF7E5 /* CheckUserView.swift */; };
+		615D33B32B60AC3E00CAF7E5 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33B22B60AC3E00CAF7E5 /* ColorTheme.swift */; };
+		615D33B52B60B54E00CAF7E5 /* MatchupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33B42B60B54E00CAF7E5 /* MatchupView.swift */; };
+		615D33B72B60BBB600CAF7E5 /* MatchupRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33B62B60BBB600CAF7E5 /* MatchupRowView.swift */; };
+		615D33BA2B60C05200CAF7E5 /* ChallengeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33B92B60C05200CAF7E5 /* ChallengeListView.swift */; };
 		61B5B5C82B5C6DCD00B05615 /* JogoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5C72B5C6DCD00B05615 /* JogoApp.swift */; };
 		61B5B5CA2B5C6DCD00B05615 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5C92B5C6DCD00B05615 /* ContentView.swift */; };
 		61B5B5CC2B5C6DCE00B05615 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61B5B5CB2B5C6DCE00B05615 /* Assets.xcassets */; };
@@ -46,6 +51,12 @@
 		615D33AA2B5F4F7400CAF7E5 /* Text+TitleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+TitleStyle.swift"; sourceTree = "<group>"; };
 		615D33AC2B5F512100CAF7E5 /* AppDependancies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependancies.swift; sourceTree = "<group>"; };
 		615D33AE2B5F5FA800CAF7E5 /* Matchup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matchup.swift; sourceTree = "<group>"; };
+		615D33B02B60959100CAF7E5 /* CheckUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUserView.swift; sourceTree = "<group>"; };
+		615D33B22B60AC3E00CAF7E5 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
+		615D33B42B60B54E00CAF7E5 /* MatchupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupView.swift; sourceTree = "<group>"; };
+		615D33B62B60BBB600CAF7E5 /* MatchupRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchupRowView.swift; sourceTree = "<group>"; };
+		615D33B92B60C05200CAF7E5 /* ChallengeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeListView.swift; sourceTree = "<group>"; };
+		615D33BB2B60C79C00CAF7E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		61B5B5C42B5C6DCD00B05615 /* Jogo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jogo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61B5B5C72B5C6DCD00B05615 /* JogoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JogoApp.swift; sourceTree = "<group>"; };
 		61B5B5C92B5C6DCD00B05615 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -82,6 +93,9 @@
 				615D33A12B5D6A3600CAF7E5 /* ChallengeNonUserView.swift */,
 				615D33A52B5F4F1B00CAF7E5 /* MatchupsView.swift */,
 				615D33A72B5F4F3600CAF7E5 /* HistoryView.swift */,
+				615D33B02B60959100CAF7E5 /* CheckUserView.swift */,
+				615D33B42B60B54E00CAF7E5 /* MatchupView.swift */,
+				615D33B62B60BBB600CAF7E5 /* MatchupRowView.swift */,
 			);
 			path = Matchups;
 			sourceTree = "<group>";
@@ -112,6 +126,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		615D33B82B60C04600CAF7E5 /* Challenges */ = {
+			isa = PBXGroup;
+			children = (
+				615D33B92B60C05200CAF7E5 /* ChallengeListView.swift */,
+			);
+			path = Challenges;
+			sourceTree = "<group>";
+		};
 		61B5B5BB2B5C6DCD00B05615 = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +153,7 @@
 		61B5B5C62B5C6DCD00B05615 /* Jogo */ = {
 			isa = PBXGroup;
 			children = (
+				615D33BB2B60C79C00CAF7E5 /* Info.plist */,
 				615D338F2B5CCDF300CAF7E5 /* Models */,
 				61CDB68C2B5CBAD800CD347B /* Managers */,
 				61B5B5D62B5C6DF900B05615 /* View */,
@@ -141,6 +164,7 @@
 				61B5B5CE2B5C6DCE00B05615 /* Preview Content */,
 				615D339B2B5CD3CD00CAF7E5 /* Environment.swift */,
 				615D33AC2B5F512100CAF7E5 /* AppDependancies.swift */,
+				615D33B22B60AC3E00CAF7E5 /* ColorTheme.swift */,
 			);
 			path = Jogo;
 			sourceTree = "<group>";
@@ -156,6 +180,7 @@
 		61B5B5D62B5C6DF900B05615 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				615D33B82B60C04600CAF7E5 /* Challenges */,
 				615D33A92B5F4F5D00CAF7E5 /* Extensions */,
 				615D33922B5CCE2600CAF7E5 /* Contact */,
 				615D338C2B5CCDA400CAF7E5 /* Matchups */,
@@ -288,10 +313,13 @@
 				61CDB68E2B5CBAE300CD347B /* MatchupManager.swift in Sources */,
 				615D33AF2B5F5FA800CAF7E5 /* Matchup.swift in Sources */,
 				615D33AD2B5F512100CAF7E5 /* AppDependancies.swift in Sources */,
+				615D33B12B60959100CAF7E5 /* CheckUserView.swift in Sources */,
 				615D33982B5CCED100CAF7E5 /* ContactListView.swift in Sources */,
 				615D33A82B5F4F3600CAF7E5 /* HistoryView.swift in Sources */,
 				61B5B5DB2B5C6E5B00B05615 /* AuthenticationViewModel.swift in Sources */,
 				61B5B5E02B5C73B800B05615 /* SimpleInput.swift in Sources */,
+				615D33B72B60BBB600CAF7E5 /* MatchupRowView.swift in Sources */,
+				615D33BA2B60C05200CAF7E5 /* ChallengeListView.swift in Sources */,
 				61CDB67C2B5CA90100CD347B /* AppView.swift in Sources */,
 				615D33A42B5F39D200CAF7E5 /* User.swift in Sources */,
 				615D33AB2B5F4F7400CAF7E5 /* Text+TitleStyle.swift in Sources */,
@@ -300,8 +328,10 @@
 				615D339A2B5CD28D00CAF7E5 /* CreateMatchView.swift in Sources */,
 				61CDB6922B5CBBDF00CD347B /* Opponent.swift in Sources */,
 				61B5B5CA2B5C6DCD00B05615 /* ContentView.swift in Sources */,
+				615D33B52B60B54E00CAF7E5 /* MatchupView.swift in Sources */,
 				615D339C2B5CD3CD00CAF7E5 /* Environment.swift in Sources */,
 				61B5B5C82B5C6DCD00B05615 /* JogoApp.swift in Sources */,
+				615D33B32B60AC3E00CAF7E5 /* ColorTheme.swift in Sources */,
 				615D33A62B5F4F1B00CAF7E5 /* MatchupsView.swift in Sources */,
 				615D33912B5CCDFD00CAF7E5 /* Contact.swift in Sources */,
 				61CDB6942B5CBDD200CD347B /* CurrentMatchupView.swift in Sources */,
@@ -438,9 +468,11 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Jogo/Info.plist;
 				INFOPLIST_KEY_NSContactsUsageDescription = "We need access to your contacts to display them in the app.";
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Multiple commands produce '/Users/michaelaronianaronian/Library/Developer/Xcode/DerivedData/Jogo-aqoovepjqxqpfqbhfxcbllbnrpgw/Build/Products/Release-iphonesimulator/Jogo.app/Info.plist'\nWe need access to health data for tracking your activity.";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need access tohealth data for tracking the users for scoring capabiltiies";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need access to health data for tracking your activity.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We need to access healht data to update so that we can tally scores";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -479,9 +511,11 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Jogo/Info.plist;
 				INFOPLIST_KEY_NSContactsUsageDescription = "We need access to your contacts to display them in the app.";
-				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Multiple commands produce '/Users/michaelaronianaronian/Library/Developer/Xcode/DerivedData/Jogo-aqoovepjqxqpfqbhfxcbllbnrpgw/Build/Products/Release-iphonesimulator/Jogo.app/Info.plist'\nWe need access to health data for tracking your activity.";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need access tohealth data for tracking the users for scoring capabiltiies";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need access to health data for tracking your activity.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "We need to access healht data to update so that we can tally scores";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

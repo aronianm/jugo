@@ -17,7 +17,7 @@ struct ContentView: View {
                 LoginView(authViewModel: authViewModel)
             }
             
-        }
+        }.background(ColorTheme.background)
     }
 }
 

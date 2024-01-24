@@ -35,7 +35,7 @@ class HealthDataManager: ObservableObject {
             return (value * 100).rounded() / 100
     }
         
-        func formattedValue(value: Double) -> String {
+    func formattedValue(value: Double) -> String {
             return String(format: "%.1f", value)
     }
     

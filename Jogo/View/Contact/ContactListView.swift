@@ -9,7 +9,8 @@ import SwiftUI
 import ContactsUI
 
 struct ContactListView: View {
-    var authViewModel: AuthenticationViewModel
+    @StateObject var authViewModel: AuthenticationViewModel
+    @StateObject var matchupManager: MatchupManager
     @State private var searchText = ""
     @State private var contacts: [CNContact] = []
     
@@ -41,7 +42,8 @@ struct ContactListView: View {
                                     .padding(.trailing, 8)
                                 }
                         List(filteredContacts, id: \.identifier) { contact in
-                            NavigationLink(destination: CreateMatchView(contact: contact, authViewModel: authViewModel)) {
+                            NavigationLink(destination: CreateMatchView(contact: contact, authViewModel: authViewModel,
+                                matchupManager: matchupManager)) {
                                 Text("\(contact.givenName) \(contact.familyName)")
                             }
                         }
@@ -57,7 +59,7 @@ struct ContactListView: View {
         let store = CNContactStore()
 
         if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
-            let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
+            let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey, CNContactImageDataKey, CNContactImageDataAvailableKey, CNContactThumbnailImageDataKey]
 
             let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
 
@@ -83,6 +85,21 @@ struct ContactListView: View {
     }
 }
 
-#Preview {
-    ContactListView(authViewModel: AuthenticationViewModel())
+
+struct ContactListView_Previews: PreviewProvider {
+    class MockAuthenticationViewModel: AuthenticationViewModel {
+        
+    }
+
+    static var previews: some View {
+        @ObservedObject var mockAuthModel = MockAuthenticationViewModel()
+        mockAuthModel.login(phone_number: "978-726-5882", password: "looser67")
+
+        
+        return NavigationView {
+            ContactListView(authViewModel: mockAuthModel,
+                            matchupManager: MatchupManager())
+        }
+        
+    }
 }

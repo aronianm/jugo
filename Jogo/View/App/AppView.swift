@@ -20,7 +20,7 @@ struct AppView: View {
                 // Content based on user authentication status
                 if authViewModel.user != nil {
                     // Add HistoryView content here
-                    HistoryView()
+                    HistoryView(matchupManager: matchupManager)
                     // Add MatchupsView content here
                     MatchupsView(authViewModel: authViewModel,
                                  matchupManager: matchupManager)
@@ -32,7 +32,7 @@ struct AppView: View {
             .onAppear {
                 // Fetch data or perform other setup actions
                 fetchData()
-                if authViewModel.user != nil {
+                if authViewModel.user == nil {
                     authViewModel.handleLoginSuccess()
                 }
             }

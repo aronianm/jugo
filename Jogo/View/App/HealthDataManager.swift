@@ -11,21 +11,9 @@ import HealthKit
 class HealthDataManager: ObservableObject {
     private let healthStore = HKHealthStore()
     
-    @Published var activeEnergy: Double = 0 {
-        didSet {
-            activeEnergy = roundToTwoDecimalPlaces(activeEnergy)
-        }
-    }
-    @Published var exerciseMinutes: Double = 0 {
-        didSet {
-            exerciseMinutes = roundToTwoDecimalPlaces(exerciseMinutes)
-        }
-    }
-    @Published var standHours: Double = 0 {
-        didSet {
-            standHours = roundToTwoDecimalPlaces(standHours)
-        }
-    }
+    @Published var activeEnergy: Double = 0
+    @Published var exerciseMinutes: Double = 0
+    @Published var standHours: Double = 0
     
     init() {
         requestAuthorization()
@@ -50,15 +38,15 @@ class HealthDataManager: ObservableObject {
     }
     
     private func loadHealthData() {
-        loadQuantitySample(type: .activeEnergyBurned) { quantity in
+        loadQuantitySample(type: HKQuantityTypeIdentifier.activeEnergyBurned) { quantity in
             self.activeEnergy = quantity.doubleValue(for: .kilocalorie())
         }
         
-        loadQuantitySample(type: .appleExerciseTime) { quantity in
+        loadQuantitySample(type: HKQuantityTypeIdentifier.appleExerciseTime) { quantity in
             self.exerciseMinutes = quantity.doubleValue(for: .minute())
         }
         
-        loadQuantitySample(type: .appleStandTime) { quantity in
+        loadQuantitySample(type: HKQuantityTypeIdentifier.appleStandTime) { quantity in
             self.standHours = quantity.doubleValue(for: .hour())
         }
     }
@@ -70,11 +58,12 @@ class HealthDataManager: ObservableObject {
         let startOfDay = calendar.startOfDay(for: now)
         let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
         
-        let query = HKStatisticsQuery(quantityType: type, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, _ in
+        let query = HKStatisticsQuery(quantityType: type, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, error in
             if let sum = result?.sumQuantity() {
-                DispatchQueue.main.async {
-                    completion(sum)
-                }
+                completion(sum)
+            }
+            if let error = error {
+                print("Error Health Data: \(error)")
             }
         }
         

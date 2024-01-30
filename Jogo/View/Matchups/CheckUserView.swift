@@ -11,6 +11,8 @@ struct CheckUserView: View {
     @State var contactUser:Int?
     var phoneNumber:String
     @State var userExist:Bool = false
+    @Binding var shouldNavigateBack:Bool
+    @Binding var isSheetPresented:Bool
     var body: some View {
         Button(action: {
             // Handle button tap action
@@ -38,7 +40,7 @@ struct CheckUserView: View {
     }
     
     func sendChallenge(phoneNumber: String){
-        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
+        let authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
         let baseURL = Environment.apiBaseURL
         guard let url = URL(string: "\(baseURL)/matchups") else {
             return
@@ -82,6 +84,8 @@ struct CheckUserView: View {
                     // Parse and handle the response data
                     do {
                         let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
+                        shouldNavigateBack = false
+                        isSheetPresented = false
                         if let jsonResponse = jsonResponse as? [String: Any] {
                             // Now jsonResponse is safely cast as a dictionary
 
@@ -115,7 +119,7 @@ struct CheckUserView: View {
         }.resume()
     }
     func checkUser(mobileNumber:String) {
-        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
+        let authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
         let baseURL = Environment.apiBaseURL
         guard let url = URL(string: "\(baseURL)/users/check_user") else {
             return
@@ -193,6 +197,6 @@ struct CheckUserView: View {
     }
 }
 
-#Preview {
-    CheckUserView(phoneNumber: "(774) 573-5663")
-}
+//#Preview {
+//    CheckUserView(phoneNumber: "(774) 573-5663")
+//}

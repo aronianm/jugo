@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct HistoryView: View {
-    var healthManager = HealthDataManager()
+    @StateObject var matchupManager:MatchupManager
+    @StateObject var healthManager = HealthDataManager()
     @State var userWins = 0
     @State var userLosses = 0
     
@@ -39,6 +40,8 @@ struct HistoryView: View {
                     UserStatRow(title: "Losses", value: "\(userLosses)")
                         .foregroundColor(ColorTheme.secondary)
                 }
+            }.onAppear {
+                matchupManager.updateScores(healthManager: healthManager)
             }
         }
         .padding(16)
@@ -92,7 +95,4 @@ struct UserStatRow: View {
                 .foregroundColor(ColorTheme.white) // Use your secondary
         }
     }
-}
-#Preview {
-    HistoryView()
 }

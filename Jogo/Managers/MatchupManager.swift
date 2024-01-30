@@ -14,11 +14,70 @@ class MatchupManager: ObservableObject {
     @Published var activeMatchups: [Matchup] = []
     @Published var challengeInvitations: [Matchup] = []
     @Published var activeMatch:Matchup?
+    @Published var isChallengeSent:Bool = false
     @State var activeUser:Int?
     var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
     var userExists:Bool = false
     let baseURL = Environment.apiBaseURL
+    
+    func updateScores(healthManager: HealthDataManager) {
+        let activeEnergy = healthManager.activeEnergy
+        let standHours = healthManager.standHours
+        let exerciseMinutes = healthManager.exerciseMinutes
 
+        let sum = activeEnergy + standHours + exerciseMinutes
+
+        for matchup in self.matchups {
+            guard let url = URL(string: "\(baseURL)/matchups/\(matchup.id)/update_scores") else {
+                // Handle the case where the URL is invalid
+                continue
+            }
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            let parameters: [String: Any] = [
+                "score": sum
+            ]
+
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: parameters)
+                request.httpBody = jsonData
+            } catch {
+                // Handle the error if JSON serialization fails
+                print("Error serializing JSON: \(error)")
+                continue
+            }
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    // Handle the error from the data task
+                    print("Error updating scores: \(error)")
+                    return
+                }
+
+                guard let data = data else {
+                    // Handle the case where no data is returned
+                    return
+                }
+
+                do {
+                    let decoder = JSONDecoder()
+                    let decodedMatchup = try decoder.decode(Matchup.self, from: data)
+
+                    // Update the existing matchup in self.matchups with the new data
+                    if let index = self.matchups.firstIndex(where: { $0.id == decodedMatchup.id }) {
+                        self.matchups[index] = decodedMatchup
+                    }
+                } catch {
+                    // Handle the error if decoding fails
+                    print("Error decoding response: \(error)")
+                }
+            }.resume()
+        }
+    }
     func sendChallengeRequest(completion: @escaping (Result<Matchup, Error>) -> Void) {
         guard let url = URL(string: "\(baseURL)/matchups") else {
             completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))

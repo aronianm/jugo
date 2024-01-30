@@ -36,7 +36,7 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Image(systemName: "person.circle")
+                Image("Logo")
                     .resizable()
                     .frame(width: 100, height: 100)
                     .padding()
@@ -49,7 +49,7 @@ struct LoginView: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(8)
                     .padding(.horizontal, 20).autocapitalization(.none)
-                
+                    .foregroundColor(.white)
                 
                 SecureField("Password", text: $password)
                     .padding()
@@ -57,6 +57,7 @@ struct LoginView: View {
                     .cornerRadius(8)
                     .autocapitalization(.none) 
                     .padding(.horizontal, 20)
+                    .foregroundColor(.white)
                 
                 HStack{
                     Button("Login") {
@@ -66,7 +67,7 @@ struct LoginView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(
-                            LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .leading, endPoint: .trailing)
+                            LinearGradient(gradient: Gradient(colors: [ColorTheme.secondary, ColorTheme.primary]), startPoint: .leading, endPoint: .trailing)
                         )
                         .cornerRadius(10)
                         .padding(.horizontal, 40)
@@ -78,18 +79,16 @@ struct LoginView: View {
                                                 .padding()
                                                 .frame(maxWidth: .infinity)
                                                 .background(
-                                                    LinearGradient(gradient: Gradient(colors: [Color.blue, Color.green]), startPoint: .leading, endPoint: .trailing)
+                                                    LinearGradient(gradient: Gradient(colors: [ColorTheme.secondary, ColorTheme.primary]), startPoint: .leading, endPoint: .trailing)
                                                 )
                                                 .cornerRadius(10)
                                                 .padding(.horizontal, 40)
                                                 .padding(.vertical, 15)
                                     }
                 }
-                .padding(.top, 20)
-                
                 Spacer()
-            }
-            .padding()
+            }.background(ColorTheme.background)
+            Spacer()
         }
     }
 }

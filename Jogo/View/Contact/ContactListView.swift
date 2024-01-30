@@ -9,10 +9,14 @@ import SwiftUI
 import ContactsUI
 
 struct ContactListView: View {
+    @State private var isSheetPresented = false
     @StateObject var authViewModel: AuthenticationViewModel
     @StateObject var matchupManager: MatchupManager
     @State private var searchText = ""
     @State private var contacts: [CNContact] = []
+    @State var showContact = true
+    @Binding var shouldNavigateBack:Bool
+    @State var activeContact:CNContact?
     
     var filteredContacts: [CNContact] {
         if searchText.isEmpty {
@@ -29,29 +33,38 @@ struct ContactListView: View {
         NavigationView {
                     VStack {
                         HStack {
-                                    TextField("Search", text: $searchText)
-                                        .padding(8)
-                                        .background(Color(.systemGray5))
-                                        .cornerRadius(8)
-                                    Button(action: {
-                                        self.searchText = ""
-                                    }) {
-                                        Image(systemName: "xmark.circle.fill")
-                                            .foregroundColor(.gray)
-                                    }
-                                    .padding(.trailing, 8)
+                            TextField("Search", text: $searchText)
+                                    .padding(8)
+                                    .background(Color(.systemGray5))
+                                    .cornerRadius(8)
+                                Button(action: {
+                                    self.searchText = ""
+                                }) {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundColor(.gray)
                                 }
-                        List(filteredContacts, id: \.identifier) { contact in
-                            NavigationLink(destination: CreateMatchView(contact: contact, authViewModel: authViewModel,
-                                matchupManager: matchupManager)) {
-                                Text("\(contact.givenName) \(contact.familyName)")
+                                .padding(.trailing, 8)
+                            }.sheet(isPresented: $isSheetPresented) {
+                                CreateMatchView(contact: activeContact!, 
+                                                authViewModel: authViewModel,
+                                                matchupManager: matchupManager,
+                                                shouldNavigateBack: $shouldNavigateBack,
+                                                isSheetPresented: $isSheetPresented
+                                )
                             }
-                        }
-                    }
-                    .onAppear {
-                       loadContacts()
-                        
-                    }
+                            List(filteredContacts, id: \.identifier) { contact in
+                                Text("\(contact.givenName) \(contact.familyName)").onTapGesture {
+                                    matchupManager.isChallengeSent = true
+//                                    shouldNavigateBack = false
+                                    activeContact = contact
+                                    isSheetPresented = true
+                                }
+                            }
+                                            
+                        }.onAppear {
+                            loadContacts()
+                         }
+                    
                 }
     }
     
@@ -95,10 +108,10 @@ struct ContactListView_Previews: PreviewProvider {
         @ObservedObject var mockAuthModel = MockAuthenticationViewModel()
         mockAuthModel.login(phone_number: "978-726-5882", password: "looser67")
 
-        
+        @State var shouldNavigateBack:Bool = false
         return NavigationView {
             ContactListView(authViewModel: mockAuthModel,
-                            matchupManager: MatchupManager())
+                            matchupManager: MatchupManager(), shouldNavigateBack: $shouldNavigateBack)
         }
         
     }

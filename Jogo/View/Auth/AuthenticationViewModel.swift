@@ -10,6 +10,7 @@ import SwiftUI
 class AuthenticationViewModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var authToken: String = ""
+    @Published var accessDenied:Bool = false
     @Published var user: User?
     let baseURL = Environment.apiBaseURL
 
@@ -100,9 +101,11 @@ class AuthenticationViewModel: ObservableObject {
                         self.user = user
                     }
                 } catch {
+                    self.isLoggedIn = false
                     print("Error decoding JSON: \(error)")
                 }
             case .failure(let error):
+                self.isLoggedIn = false
                 print("current_user Error: \(error)")
             }
         }
@@ -141,10 +144,11 @@ class AuthenticationViewModel: ObservableObject {
 
                 switch httpResponse.statusCode {
                 case 200..<300:
-                    // Status code indicates success
+                    self.accessDenied = false
                     completion(.success((data, responseHeaders)))
                 case 401:
                     // Unauthorized: Handle authentication issues
+                    self.accessDenied = true
                     let error = NSError(domain: "AuthenticationViewModel", code: 401, userInfo: nil)
                     completion(.failure(error))
                 case 400..<500:

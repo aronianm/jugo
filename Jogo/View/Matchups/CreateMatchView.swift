@@ -8,26 +8,14 @@
 import SwiftUI
 import Contacts
 
-struct OptionalImageView: View {
-    var uiImage: UIImage?
-
-    var body: some View {
-        if let uiImage = uiImage {
-            Text("No iMAGE")
-        } else {
-            Image(systemName: "person.circle.fill")
-                .resizable()
-        }
-    }
-}
-
 
 struct CreateMatchView: View {
     @State private var isMessageComposeViewPresented = true
-    @State private var isChallengeSent: Bool = false
     var contact: CNContact
     @StateObject var authViewModel: AuthenticationViewModel
     @StateObject var matchupManager: MatchupManager
+    @Binding var shouldNavigateBack:Bool
+    @Binding var isSheetPresented:Bool
 
     var body: some View {
         NavigationView {
@@ -66,7 +54,9 @@ struct CreateMatchView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         ForEach(contact.phoneNumbers, id: \.identifier) { phoneNumber in
                             HStack {
-                                CheckUserView(phoneNumber: phoneNumber.value.stringValue)
+                                CheckUserView(phoneNumber: phoneNumber.value.stringValue,
+                                              shouldNavigateBack: $shouldNavigateBack,
+                                              isSheetPresented: $isSheetPresented)
                             }
                         }
                     }
@@ -84,7 +74,9 @@ struct CreateMatchView: View {
 
     func sendChallengeRequest() {
         matchupManager.sendChallengeRequest { success in
-            
+            matchupManager.isChallengeSent = true
+            shouldNavigateBack = false
+            isSheetPresented = false
         }
     }
 }

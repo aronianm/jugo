@@ -13,5 +13,5 @@ struct Matchup: Codable, Identifiable {
     var opponent: Opponent
     var opponentScore:Int
     var userScore:Int
-    var isActive: Bool
+    var isActive:Bool
 }

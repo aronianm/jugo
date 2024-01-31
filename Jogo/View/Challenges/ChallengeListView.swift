@@ -15,7 +15,7 @@ struct ChallengeListView: View {
         List {
             ForEach(matchupManager.challengeInvitations, id: \.id) { matchup in
                 HStack{
-                    Text(matchup.opponent)
+                    Text(matchup.opponent())
                     Spacer()
                     Button(action: {
                                     showAcceptAlert.toggle()
@@ -31,12 +31,12 @@ struct ChallengeListView: View {
                                         title: Text("Accept Confirmation"),
                                         message: Text("Are you sure you want to accept this?"),
                                         primaryButton: .default(Text("Accept")) {
-                                            // Handle accept action
-                                            // You can perform additional actions here
+                                            matchupManager.updateMatch(id: matchup.id, params: ["userAccepted": true])
                                         },
                                         secondaryButton: .cancel {
-                                                    showAcceptAlert = false
-                                                }
+                                            matchupManager.updateMatch(id: matchup.id, params: ["userAccepted": false])
+                                            showAcceptAlert = false
+                                        }
                                     )
                                 }
                     Spacer()

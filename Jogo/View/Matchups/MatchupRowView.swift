@@ -11,17 +11,17 @@ struct MatchupRowView: View {
     var matchup:Matchup
     var body: some View {
         HStack {
-            Text(matchup.opponent)
+            Text(matchup.opponent())
                 .font(.custom("PixelFont", size: 20)) // Use a pixelated font
                 .foregroundColor(.white)
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             
-            Text("\(matchup.opponentScore)")
+            Text(matchup.opponentScore())
                 .font(.custom("PixelFont", size: 20)) // Use a pixelated font
                 .foregroundColor(.white)
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
             
-            Text("\(matchup.userScore)")
+            Text(matchup.userScore())
                 .font(.custom("PixelFont", size: 20)) // Use a pixelated font
                 .foregroundColor(.white)
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)

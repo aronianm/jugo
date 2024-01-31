@@ -16,7 +16,7 @@ struct MatchupView: View {
         VStack{
             if(matchup != nil){
                 VStack {
-                            Text(matchup?.opponent ?? "")
+                            Text(matchup?.opponent() ?? "")
                                 .font(.title)
                                 .foregroundColor(ColorTheme.white)
                                 .padding()

@@ -8,11 +8,26 @@
 import Foundation
 import SwiftUI
 struct Matchup: Codable, Identifiable {
-    var id:Int
-    var opponent: String
-    var opponentScore:Int
-    var userScore:Int
+    var id: Int
     var isActive: Bool
-    var userAccepted:Bool?
+    var isFinalized: Bool
+    var userAccepted: Bool
+//    var created_at: Date
+//    var updated_at: Date
+    var seasons:[Season]?
+    var userOne:User
+    var userTwo:User
+    var currentUser:Int
+    
+    func opponentScore() -> String {
+        return ""
+    }
+    func userScore() -> String {
+        return " "
+    }
+    func opponent() -> String {
+        let u = currentUser == userOne.id ? userTwo : userOne
+        return "\(u.fname) \(u.lname)"
+    }
 }
 

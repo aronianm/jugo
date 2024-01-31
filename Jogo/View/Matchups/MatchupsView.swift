@@ -12,7 +12,6 @@ struct MatchupsView: View {
      @StateObject var authViewModel: AuthenticationViewModel
      @StateObject var matchupManager: MatchupManager
      @State private var showInactiveMessage = false
-     let timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
 
      var body: some View {
          NavigationView {
@@ -23,20 +22,20 @@ struct MatchupsView: View {
                      .foregroundColor(ColorTheme.primary) // Replace with your primary color
                      .multilineTextAlignment(.center)
                  
-                 NavigationLink(
-                     destination: ContactListView(authViewModel: authViewModel, matchupManager: matchupManager, shouldNavigateBack: $shouldNavigateBack),
-                     isActive: $shouldNavigateBack,
-                     label: {
-                         Text("Find Opponent")
-                             .font(.headline)
-                             .foregroundColor(ColorTheme.white)
-                             .padding()
-                             .background(ColorTheme.primary) // Replace with your accent color
-                             .cornerRadius(10).onTapGesture {
-                                 shouldNavigateBack = true
-                             }
-                     }
-                 )
+                     NavigationLink(
+                        destination: ContactListView(authViewModel: authViewModel, matchupManager: matchupManager, shouldNavigateBack: $shouldNavigateBack),
+                        isActive: $shouldNavigateBack,
+                        label: {
+                            Text("Find Opponent")
+                                .font(.headline)
+                                .foregroundColor(ColorTheme.white)
+                                .padding()
+                                .background(ColorTheme.primary) // Replace with your accent color
+                                .cornerRadius(10).onTapGesture {
+                                    shouldNavigateBack = true
+                                }
+                        }
+                     )
                  
                  
                  
@@ -64,21 +63,23 @@ struct MatchupsView: View {
                                      }
                                  }
                          }
+                     } .onDelete { indexSet in
+                         // Handle deletion here
+                         for index in indexSet {
+                             let matchup = matchupManager.matchups[index]
+                             matchupManager.deleteMatchup(id: matchup.id)
+                         }
                      }
                  }
-                 .listStyle(.inset)
+                 .listStyle(.inset).refreshable {
+                     // This closure will be called when the user pulls down to refresh
+                     // You can perform any data fetching or refreshing logic here
+                     matchupManager.findAllMatchups()
+                 }
              }
              .navigationBarBackButtonHidden(true)
-         }
-         .onReceive(timer) { _ in
+         }.onAppear {
              matchupManager.findAllMatchups()
-         }
-         .onAppear {
-             matchupManager.findAllMatchups()
-         }
-         .onDisappear {
-             // Invalidate the timer when the view disappears
-             timer.upstream.connect().cancel()
          }
      }
  }

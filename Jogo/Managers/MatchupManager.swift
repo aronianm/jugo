@@ -119,7 +119,76 @@ class MatchupManager: ObservableObject {
                 completion(.failure(error))
             }
         }.resume()
-}
+    }
+    
+    func updateMatch(id: Int, params: [String: Any]) {
+        guard let url = URL(string: "\(baseURL)/matchups/\(id)") else {
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
+
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: params, options: [])
+            request.httpBody = jsonData
+        } catch {
+            print("Error encoding JSON: \(error)")
+            return
+        }
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+
+            // Handle response data here
+            // For example, you can decode the response JSON data
+            // to extract any relevant information
+            do {
+                let responseJson = try JSONSerialization.jsonObject(with: data, options: [])
+                print("Response: \(responseJson)")
+                // You can perform additional handling of the response data here
+            } catch {
+                print("Error decoding response JSON: \(error)")
+            }
+        }.resume()
+    }
+    func deleteMatchup(id:Int){
+        guard let url = URL(string: "\(baseURL)/matchups/\(id)") else {
+            return
+        }
+    
+    
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            if let error = error {
+                return
+            }
+
+            guard let data = data else {
+                return
+            }
+
+            do {
+                print("Succesfully deletion")
+            } catch {
+                print("Error \(error)")
+            }
+        }.resume()
+    }
     // Additional functions for managing matchups can be added here
     func findAllMatchups() {
             guard let url = URL(string: "\(baseURL)/matchups") else {

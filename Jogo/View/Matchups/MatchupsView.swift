@@ -49,7 +49,7 @@ struct MatchupsView: View {
                  List {
                      ForEach(matchupManager.matchups, id: \.id) { matchup in
                          if matchup.userAccepted == true {
-                             NavigationLink(destination: MatchupView(id: matchup.id)) {
+                             NavigationLink(destination: MatchupView(matchup: matchup)) {
                                  MatchupRowView(matchup: matchup)
                              }
                          } else {

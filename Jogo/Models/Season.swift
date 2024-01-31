@@ -11,7 +11,6 @@ struct Season: Codable, Identifiable {
     var id: Int
     var userOneWins: Int
     var userTwoWins: Int
+    var seasonMatchup: [SeasonMatchup]?
     var matchup_id: Int
-    var created_at: Date
-    var updated_at: Date
 }

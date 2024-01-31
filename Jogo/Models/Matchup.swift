@@ -11,7 +11,7 @@ struct Matchup: Codable, Identifiable {
     var id: Int
     var isActive: Bool
     var isFinalized: Bool
-    var userAccepted: Bool
+    var userAccepted: Bool? = false
 //    var created_at: Date
 //    var updated_at: Date
     var seasons:[Season]?

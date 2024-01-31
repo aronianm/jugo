@@ -8,66 +8,43 @@
 import SwiftUI
 
 struct MatchupView: View {
-    var id:Int
-    @State var matchup:Matchup?
-    var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
-    let baseURL = Environment.apiBaseURL
+    var matchup:Matchup
     var body: some View {
+       
         VStack{
-            if(matchup != nil){
-                VStack {
-                            Text(matchup?.opponent() ?? "")
-                                .font(.title)
-                                .foregroundColor(ColorTheme.white)
-                                .padding()
-
-                            HStack {
-                                CircularProgressView(progress: 0.2, color: ColorTheme.green)
-                                CircularProgressView(progress: 0.6, color: ColorTheme.red)
-                                CircularProgressView(progress: 0.9, color: ColorTheme.barBlue)
-                            }
-
-                            Spacer()
-                        }
-                        .background(ColorTheme.background)
-                        .cornerRadius(16)
+            HStack(alignment: .center) {
+                Spacer()
+                Text(matchup.opponent())
+                    .font(.title)
+                    .foregroundColor(ColorTheme.white)
+                    .padding()
+                Spacer()
             }
-        }.onAppear {
-        // Replace with your API endpoint URL
-                guard let url = URL(string: "\(baseURL)/matchups/\(id)") else {
-                    print("Invalid URL")
-                    return
-                }
-            
-                var request = URLRequest(url: url)
-                request.httpMethod = "GET"
-                request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-
-                URLSession.shared.dataTask(with: request) { data, response, error in
-                    if let error = error {
-                        print("Error: \(error)")
-                        return
-                    }
-
-                    if let data = data {
-                        do {
-                            let decoder = JSONDecoder()
-                            // Assuming your API returns an array of Matchup objects
-                            let decodedMatchups = try decoder.decode(Matchup.self, from: data)
-                            DispatchQueue.main.async {
-                                matchup = decodedMatchups
-                            }
-                        } catch {
-                            print("Error decoding JSON: \(error)")
+            .background(ColorTheme.background)
+            HStack{
+                
+                VStack {
+                    List {
+                        ForEach(matchup.seasons ?? [], id: \.id) { season in
+                            SeasonView(id: season.id)
                         }
                     }
-                }.resume()
-        }
+                }
+            }
+            Spacer()
+        }.background(ColorTheme.accent)
+                 
+        
+        
     }
 }
 
 #Preview {
-    MatchupView(id: 6)
+    let userOne = User(id: 1, fname: "John", lname: "Doe")
+    let userTwo = User(id: 2, fname: "Jane", lname: "Smith")
+
+    let season = Season(id: 1, userOneWins: 2, userTwoWins: 1, matchup_id: 1)
+
+    let matchup = Matchup(id: 1, isActive: true, isFinalized: false, userAccepted: true, seasons: [season], userOne: userOne, userTwo: userTwo, currentUser: userOne.id)
+    return MatchupView(matchup: matchup)
 }

@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-class User: Identifiable, Codable {
+import Foundation
+struct User: Identifiable, Codable {
     var id: Int
     var fname: String
     var lname: String
-    
     
     func formattedName() -> String {
         return "\(fname) \(lname)"

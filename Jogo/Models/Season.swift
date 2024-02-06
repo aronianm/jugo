@@ -13,4 +13,5 @@ struct Season: Codable, Identifiable {
     var userTwoWins: Int
     var seasonMatchup: [SeasonMatchup]?
     var matchup_id: Int
+    var matchup: Matchup?
 }

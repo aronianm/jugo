@@ -26,6 +26,7 @@
 		615D33BD2B69E5D000CAF7E5 /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33BC2B69E5D000CAF7E5 /* Season.swift */; };
 		615D33BF2B6A004C00CAF7E5 /* SeasonMatchup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33BE2B6A004C00CAF7E5 /* SeasonMatchup.swift */; };
 		615D33C22B6A00F400CAF7E5 /* SeasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33C12B6A00F400CAF7E5 /* SeasonView.swift */; };
+		615D33C42B71D63900CAF7E5 /* SeasonMatchupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33C32B71D63900CAF7E5 /* SeasonMatchupView.swift */; };
 		61B5B5C82B5C6DCD00B05615 /* JogoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5C72B5C6DCD00B05615 /* JogoApp.swift */; };
 		61B5B5CA2B5C6DCD00B05615 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5C92B5C6DCD00B05615 /* ContentView.swift */; };
 		61B5B5CC2B5C6DCE00B05615 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61B5B5CB2B5C6DCE00B05615 /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 		615D33BC2B69E5D000CAF7E5 /* Season.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Season.swift; sourceTree = "<group>"; };
 		615D33BE2B6A004C00CAF7E5 /* SeasonMatchup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonMatchup.swift; sourceTree = "<group>"; };
 		615D33C12B6A00F400CAF7E5 /* SeasonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonView.swift; sourceTree = "<group>"; };
+		615D33C32B71D63900CAF7E5 /* SeasonMatchupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonMatchupView.swift; sourceTree = "<group>"; };
 		61B5B5C42B5C6DCD00B05615 /* Jogo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jogo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61B5B5C72B5C6DCD00B05615 /* JogoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JogoApp.swift; sourceTree = "<group>"; };
 		61B5B5C92B5C6DCD00B05615 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -110,7 +112,6 @@
 			isa = PBXGroup;
 			children = (
 				61B5B5DA2B5C6E5B00B05615 /* AuthenticationViewModel.swift */,
-				61CDB67E2B5CAA3B00CD347B /* HealthDataManager.swift */,
 				615D33902B5CCDFD00CAF7E5 /* Contact.swift */,
 				615D33A32B5F39D200CAF7E5 /* User.swift */,
 				615D33AE2B5F5FA800CAF7E5 /* Matchup.swift */,
@@ -148,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				615D33C12B6A00F400CAF7E5 /* SeasonView.swift */,
+				615D33C32B71D63900CAF7E5 /* SeasonMatchupView.swift */,
 			);
 			path = Seasons;
 			sourceTree = "<group>";
@@ -248,6 +250,7 @@
 		61CDB68C2B5CBAD800CD347B /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				61CDB67E2B5CAA3B00CD347B /* HealthDataManager.swift */,
 				61CDB68D2B5CBAE300CD347B /* MatchupManager.swift */,
 				61CDB6912B5CBBDF00CD347B /* Opponent.swift */,
 			);
@@ -332,6 +335,7 @@
 				615D33AD2B5F512100CAF7E5 /* AppDependancies.swift in Sources */,
 				615D33B12B60959100CAF7E5 /* CheckUserView.swift in Sources */,
 				615D33BF2B6A004C00CAF7E5 /* SeasonMatchup.swift in Sources */,
+				615D33C42B71D63900CAF7E5 /* SeasonMatchupView.swift in Sources */,
 				615D33982B5CCED100CAF7E5 /* ContactListView.swift in Sources */,
 				615D33A82B5F4F3600CAF7E5 /* HistoryView.swift in Sources */,
 				61B5B5DB2B5C6E5B00B05615 /* AuthenticationViewModel.swift in Sources */,

@@ -40,8 +40,6 @@ struct HistoryView: View {
                     UserStatRow(title: "Losses", value: "\(userLosses)")
                         .foregroundColor(ColorTheme.secondary)
                 }
-            }.onAppear {
-                matchupManager.updateScores(healthManager: healthManager)
             }
         }
         .padding(16)

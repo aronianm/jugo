@@ -12,8 +12,6 @@ struct Matchup: Codable, Identifiable {
     var isActive: Bool
     var isFinalized: Bool
     var userAccepted: Bool? = false
-//    var created_at: Date
-//    var updated_at: Date
     var seasons:[Season]?
     var userOne:User
     var userTwo:User
@@ -22,11 +20,24 @@ struct Matchup: Codable, Identifiable {
     func opponentScore() -> String {
         return ""
     }
+    func opponent() -> User {
+        let u = currentUser == userOne.id ? userTwo : userOne
+        return u
+    }
     func userScore() -> String {
         return " "
     }
-    func opponent() -> String {
+    func user() -> User {
+        let u = currentUser == userOne.id ? userOne : userTwo
+        return u
+    }
+    func opponentTitle() -> String {
         let u = currentUser == userOne.id ? userTwo : userOne
+        return "\(u.fname) \(u.lname)"
+    }
+    
+    func userTitle() -> String {
+        let u = currentUser != userOne.id ? userTwo : userOne
         return "\(u.fname) \(u.lname)"
     }
 }

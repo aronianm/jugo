@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SeasonMatchup: Codable, Identifiable {
+struct SeasonMatchup: Codable, Identifiable, Hashable {
     var id: Int
     var week: Int
     var season_id: Int
@@ -15,6 +15,12 @@ struct SeasonMatchup: Codable, Identifiable {
     var userOneTotalScore: Float
     var userTwoDailyScore: Float
     var userTwoTotalScore: Float
-    var userOneScoreUpdated: Date
-    var userTwoScoreUpdated: Date
+    var userOneFormattedScore:Float
+    var userTwoFormattedScore:Float
+    
+    
+    func userOpponentScore(user: User){
+        
+    }
+    
 }

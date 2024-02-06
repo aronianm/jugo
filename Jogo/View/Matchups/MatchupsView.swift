@@ -78,8 +78,6 @@ struct MatchupsView: View {
                  }
              }
              .navigationBarBackButtonHidden(true)
-         }.onAppear {
-             matchupManager.findAllMatchups()
          }
      }
  }

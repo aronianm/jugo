@@ -13,12 +13,13 @@ struct AppView: View {
     @State private var selectedOption = 0
     @State private var showDropdown = false
     @State private var isLogoutAlertPresented = false
+    @State private var loading:Bool = true
 
     var body: some View {
         NavigationView {
             VStack {
                 // Content based on user authentication status
-                if authViewModel.user != nil {
+                if authViewModel.user != nil && !loading {
                     // Add HistoryView content here
                     HistoryView(matchupManager: matchupManager)
                     // Add MatchupsView content here
@@ -57,7 +58,7 @@ struct AppView: View {
                                             Text("Invitations")
                                             Image(systemName: "list.clipboard.fill")
                                         }
-                                        
+    
                                     }
                                     .popover(isPresented: $showDropdown, arrowEdge: .bottom) {
                                         ChallengeListView(matchupManager: matchupManager)
@@ -101,7 +102,11 @@ struct AppView: View {
      private func fetchData() {
          // Perform data fetching using matchupManager
          matchupManager.authToken = authViewModel.authToken
-         matchupManager.findAllMatchups()
+         Task {
+             matchupManager.findAllMatchups()
+             loading = false
+         }
+         
      }
  }
 

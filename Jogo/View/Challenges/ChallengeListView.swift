@@ -15,7 +15,7 @@ struct ChallengeListView: View {
         List {
             ForEach(matchupManager.challengeInvitations, id: \.id) { matchup in
                 HStack{
-                    Text(matchup.opponent())
+                    Text(matchup.opponentTitle())
                     Spacer()
                     Button(action: {
                                     showAcceptAlert.toggle()

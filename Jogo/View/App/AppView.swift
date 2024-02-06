@@ -39,16 +39,16 @@ struct AppView: View {
             }
             .toolbar {
                 // Fancy toolbar items
-                ToolbarItem(placement: .navigationBarLeading) {
-                    HStack {
-                        Image(systemName: "star.fill") // Replace with your preferred SF Symbol
-                        Text("Leaders")
-                    }
-                    .foregroundColor(ColorTheme.white) // Use your accent color
-                    .onTapGesture {
-                        // Handle menu button action
-                    }
-                }
+//                ToolbarItem(placement: .navigationBarLeading) {
+//                    HStack {
+//                        Image(systemName: "star.fill") // Replace with your preferred SF Symbol
+//                        Text("Leaders")
+//                    }
+//                    .foregroundColor(ColorTheme.white) // Use your accent color
+//                    .onTapGesture {
+//                        // Handle menu button action
+//                    }
+//                }
                 
                 ToolbarItem() {
                                     Button(action: {

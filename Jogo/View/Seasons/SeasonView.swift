@@ -11,7 +11,7 @@ struct SeasonView: View {
     var id: Int
     @State private var season: Season?
     @State private var isLoading = false
-
+    @State private var currentIndex: Int = 0
 
     var body: some View {
         Group {
@@ -31,10 +31,25 @@ struct SeasonView: View {
                             .stroke(Color.secondary, lineWidth: 2)
                     )
                     Spacer()
-                    if let seasonMatchups = season.seasonMatchup {
-                        ForEach(seasonMatchups, id: \.self) { seasonMatchup in
-                            SeasonMatchupView(seasonMatchup: seasonMatchup, matchup: season.matchup!)
+                    ScrollView(.horizontal, showsIndicators: true) {
+                        ScrollViewReader { scrollViewProxy in
+                            HStack(spacing: 10) {
+                                ForEach(season.seasonMatchup ?? [], id: \.self) { seasonMatchup in
+                                    SeasonMatchupView(seasonMatchup: seasonMatchup, matchup: season.matchup!)
+                                        .frame(width: UIScreen.main.bounds.width - 100) // Adjust padding as needed
+                                }
+                            }
+                            .padding(10)
+                            .onChange(of: currentIndex) { _ in
+                                withAnimation {
+                                    scrollViewProxy.scrollTo(currentIndex)
+                                }
+                            }
                         }
+                    }
+                    .coordinateSpace(name: "scroll")
+                    .onAppear {
+                        currentIndex = 0
                     }
                 }
             } else {

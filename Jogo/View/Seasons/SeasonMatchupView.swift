@@ -10,7 +10,10 @@ import SwiftUI
 struct SeasonMatchupView: View {
     var seasonMatchup: SeasonMatchup
     var matchup:Matchup
-
+    
+    @State private var isShowingInputPopup = false
+    @State private var inputValue = ""
+    
     var body: some View {
         let userOneTotalScore = matchup.userOne.id != matchup.user().id ? seasonMatchup.userOneFormattedScore : seasonMatchup.userTwoFormattedScore
         let userTwoTotalScore = matchup.userOne.id == matchup.user().id ? seasonMatchup.userOneFormattedScore : seasonMatchup.userTwoFormattedScore
@@ -36,45 +39,53 @@ struct SeasonMatchupView: View {
         }()
         
         return VStack(alignment: .leading, spacing: 10) {
-            Text("Week \(seasonMatchup.week)")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-            
-            HStack {
-                VStack(alignment: .leading) {
-                    Spacer()
-                    Text("User One")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                    Text("Total Score: \(userOneTotalScore)")
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                    Spacer()
-                }
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(userOneBackgroundColor)
-                .cornerRadius(15)
-                
+            HStack{
+                Text("Week \(seasonMatchup.week)")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
                 Spacer()
-                
-                VStack(alignment: .leading) {
-                    Spacer()
-                    Text("User Two")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                    Text("Total Score: \(userTwoTotalScore)")
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                    Spacer()
+                if seasonMatchup.startMatchup == false {
+                    Button(action: {
+                        isShowingInputPopup = true
+                    }) {
+                        Image(systemName: "gear")
+                            .foregroundColor(.white)
+                    }
+                    .padding()
+                    .sheet(isPresented: $isShowingInputPopup) {
+                        VStack {
+                            Text("Enter Week Goal")
+                                .foregroundColor(.black)
+                                .padding()
+                            TextField("Enter goal", text: $inputValue)
+                                .padding()
+                                .keyboardType(.numberPad)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding()
+                            Button(action: {
+                                // Send post request to API with inputValue
+                                // Close the popup
+                                isShowingInputPopup = false
+                            }) {
+                                Text("Submit")
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color.blue)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        .shadow(radius: 5)
+                    }
                 }
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(userTwoBackgroundColor)
-                .cornerRadius(15)
-               
             }
+            if(seasonMatchup.startMatchup == false){
+                Text("This matchup has not started yet")
+            }
+            SeasonMatchupCardsView(userOneTotalScore: userOneTotalScore, userOneBackgroundColor: userOneBackgroundColor, userTwoTotalScore: userTwoTotalScore, userTwoBackgroundColor: userTwoBackgroundColor)
             // Apply corner radius to the HStack
             
         }

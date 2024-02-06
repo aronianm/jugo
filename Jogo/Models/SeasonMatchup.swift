@@ -17,6 +17,7 @@ struct SeasonMatchup: Codable, Identifiable, Hashable {
     var userTwoTotalScore: Float
     var userOneFormattedScore:Float
     var userTwoFormattedScore:Float
+    var startMatchup:Bool = false
     
     
     func userOpponentScore(user: User){

@@ -53,9 +53,10 @@ class AuthenticationViewModel: ObservableObject {
         }
     }
 
-    func login(phone_number: String, password: String) {
+    func login(phone_number: String, password: String, completion: @escaping (Error?) -> Void) {
         guard let url = URL(string: "\(baseURL)/login") else {
             print("Invalid URL")
+            completion(NetworkError.invalidURL)
             return
         }
 
@@ -74,14 +75,18 @@ class AuthenticationViewModel: ObservableObject {
                         self.authToken = token
                         self.saveAuthTokenToUserDefaults()
                         self.handleLoginSuccess()
+                        completion(nil) // Success, so call completion with nil error
                     } else {
                         print("Missing Authorization key in response headers.")
+                        completion(NetworkError.missingAuthorizationKey)
                     }
                 } catch {
                     print("Error decoding response: \(error)")
+                    completion(error) // Pass decoding error to completion
                 }
             case .failure(let error):
                 print("Login Error: \(error)")
+                completion(error) // Pass networking error to completion
             }
         }
     }

@@ -106,7 +106,8 @@ struct ContactListView_Previews: PreviewProvider {
 
     static var previews: some View {
         @ObservedObject var mockAuthModel = MockAuthenticationViewModel()
-        mockAuthModel.login(phone_number: "978-726-5882", password: "looser67")
+        mockAuthModel.login(phone_number: "978-726-5882", password: "looser67") { error in
+        }
 
         @State var shouldNavigateBack:Bool = false
         return NavigationView {

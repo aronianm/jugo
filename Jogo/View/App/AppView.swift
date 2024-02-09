@@ -38,18 +38,6 @@ struct AppView: View {
                 }
             }
             .toolbar {
-                // Fancy toolbar items
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    HStack {
-//                        Image(systemName: "star.fill") // Replace with your preferred SF Symbol
-//                        Text("Leaders")
-//                    }
-//                    .foregroundColor(ColorTheme.white) // Use your accent color
-//                    .onTapGesture {
-//                        // Handle menu button action
-//                    }
-//                }
-                
                 ToolbarItem() {
                                     Button(action: {
                                         showDropdown.toggle()
@@ -111,13 +99,15 @@ struct AppView: View {
  }
 
 struct ContentView_Previews: PreviewProvider {
+    
     class MockAuthenticationViewModel: AuthenticationViewModel {
         
     }
 
     static var previews: some View {
         @ObservedObject var mockAuthModel = MockAuthenticationViewModel()
-        mockAuthModel.login(phone_number: "978-726-5882", password: "looser67")
+        mockAuthModel.login(phone_number: "978-726-5882", password: "looser67") { error in
+        }
 
         return AppView(authViewModel: mockAuthModel)
         

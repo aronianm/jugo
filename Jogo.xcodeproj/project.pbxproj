@@ -28,6 +28,7 @@
 		615D33C22B6A00F400CAF7E5 /* SeasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33C12B6A00F400CAF7E5 /* SeasonView.swift */; };
 		615D33C42B71D63900CAF7E5 /* SeasonMatchupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33C32B71D63900CAF7E5 /* SeasonMatchupView.swift */; };
 		615D33C92B71EF0A00CAF7E5 /* SeasonMatchupCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33C82B71EF0A00CAF7E5 /* SeasonMatchupCardsView.swift */; };
+		615D33CB2B75D5E500CAF7E5 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D33CA2B75D5E500CAF7E5 /* NetworkError.swift */; };
 		61B5B5C82B5C6DCD00B05615 /* JogoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5C72B5C6DCD00B05615 /* JogoApp.swift */; };
 		61B5B5CA2B5C6DCD00B05615 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5C92B5C6DCD00B05615 /* ContentView.swift */; };
 		61B5B5CC2B5C6DCE00B05615 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61B5B5CB2B5C6DCE00B05615 /* Assets.xcassets */; };
@@ -67,6 +68,7 @@
 		615D33C12B6A00F400CAF7E5 /* SeasonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonView.swift; sourceTree = "<group>"; };
 		615D33C32B71D63900CAF7E5 /* SeasonMatchupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonMatchupView.swift; sourceTree = "<group>"; };
 		615D33C82B71EF0A00CAF7E5 /* SeasonMatchupCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonMatchupCardsView.swift; sourceTree = "<group>"; };
+		615D33CA2B75D5E500CAF7E5 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		61B5B5C42B5C6DCD00B05615 /* Jogo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jogo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61B5B5C72B5C6DCD00B05615 /* JogoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JogoApp.swift; sourceTree = "<group>"; };
 		61B5B5C92B5C6DCD00B05615 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				615D33AE2B5F5FA800CAF7E5 /* Matchup.swift */,
 				615D33BC2B69E5D000CAF7E5 /* Season.swift */,
 				615D33BE2B6A004C00CAF7E5 /* SeasonMatchup.swift */,
+				615D33CA2B75D5E500CAF7E5 /* NetworkError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				615D33B72B60BBB600CAF7E5 /* MatchupRowView.swift in Sources */,
 				615D33BA2B60C05200CAF7E5 /* ChallengeListView.swift in Sources */,
 				61CDB67C2B5CA90100CD347B /* AppView.swift in Sources */,
+				615D33CB2B75D5E500CAF7E5 /* NetworkError.swift in Sources */,
 				615D33A42B5F39D200CAF7E5 /* User.swift in Sources */,
 				615D33AB2B5F4F7400CAF7E5 /* Text+TitleStyle.swift in Sources */,
 				61B5B5D92B5C6E1200B05615 /* LoginView.swift in Sources */,
@@ -508,8 +512,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Jogo/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Jogo;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSContactsUsageDescription = "We need access to your contacts to display them in the app.";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need access tohealth data for tracking the users for scoring capabiltiies";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need access to health data for tracking your activity.";
@@ -554,8 +558,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Jogo/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Jogo;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSContactsUsageDescription = "We need access to your contacts to display them in the app.";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "We need access tohealth data for tracking the users for scoring capabiltiies";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "We need access to health data for tracking your activity.";

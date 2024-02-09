@@ -9,6 +9,10 @@ import Foundation
 
 enum Environment {
     static var apiBaseURL: String {
-        return ProcessInfo.processInfo.environment["API_BASE_URL"] ?? "http://michaels-macbook-air.local:3001"
+        #if DEBUG
+            return "http://michaels-macbook-air.local:3001"
+        #else
+            return "http://18.188.182.174"
+        #endif
     }
 }

@@ -52,7 +52,6 @@ struct LoginView: View {
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(8)
                 .padding(.horizontal, 20).autocapitalization(.none)
-                .foregroundColor(.white)
                 
                 SecureField("Password", text: $password)
                     .padding()
@@ -60,7 +59,6 @@ struct LoginView: View {
                     .cornerRadius(8)
                     .autocapitalization(.none)
                     .padding(.horizontal, 20)
-                    .foregroundColor(.white)
                 
                 // Show error message if there is one
                 if !errorMessage.isEmpty {

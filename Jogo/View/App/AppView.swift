@@ -10,53 +10,142 @@ import SwiftUI
 struct AppView: View {
     @StateObject var authViewModel: AuthenticationViewModel
     @StateObject var matchupManager = MatchupManager()
+    @StateObject var leagueManager = LeagueManager()
+    
+    @State private var code:String = ""
     @State private var selectedOption = 0
     @State private var showDropdown = false
     @State private var isLogoutAlertPresented = false
     @State private var loading:Bool = true
+    @State private var showCode:Bool = false
+    @State private var showCreateLeague:Bool = false
+    @State private var selectedTab: Int = 0
 
     var body: some View {
         NavigationView {
             VStack {
-                // Content based on user authentication status
                 if authViewModel.user != nil && !loading {
-                    // Add HistoryView content here
-                    HistoryView(matchupManager: matchupManager)
-                    // Add MatchupsView content here
-                    MatchupsView(authViewModel: authViewModel,
-                                 matchupManager: matchupManager)
+                    if(leagueManager.league != nil){
+//                        HistoryView(matchupManager: matchupManager)
+//                        MatchupsView(authViewModel: authViewModel,
+//                                         matchupManager: matchupManager)
+                    }else{
+                        HStack{
+                            Image("Logo")
+                                .resizable()
+                                .cornerRadius(20)
+                                .frame(width: 50, height: 50)
+                                .padding()
+                            if(leagueManager.leagues.count == 0){
+                                Text("Welcome to Jogo")
+                                    .foregroundColor(ColorTheme.white)
+                                    .font(.title)
+                                
+                                HStack{
+                                    Spacer()
+                                    Button(action: {
+                                        showCreateLeague = true
+                                        showCode = false
+                                        code = ""
+                                    }) {
+                                        Text("Create a League")
+                                            .padding()
+                                            .background(ColorTheme.secondary)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(8)
+                                    }
+                                    .padding()
+                                    
+                                    Button(action: {
+                                        showCreateLeague = false
+                                        showCode = true
+                                        code = ""
+                                    }) {
+                                        Text("Join a League")
+                                            .padding()
+                                            .background(ColorTheme.primary)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(8)
+                                    }
+                                    .padding()
+                                    Spacer()
+                                }
+                            }
+                    }
+                        Spacer()
+                        
+                        
+                        if(showCode){
+                            CodeLeagueView(code: $code)
+                        }else if(showCreateLeague){
+                            CreateLeagueView(leagueManager: leagueManager)
+                        }else{
+                            LeagueListView(leagueManager: leagueManager)
+                        }
+                        
+                    }
                 } else {
                     // Display when the user is not authenticated
                     ProgressView("Loading...")
                 }
+                Spacer()
             }
             .onAppear {
                 // Fetch data or perform other setup actions
                 fetchData()
                 if authViewModel.user == nil {
                     authViewModel.handleLoginSuccess()
+                    leagueManager.getLeagues()
                 }
             }
             .toolbar {
-                ToolbarItem() {
-                                    Button(action: {
-                                        showDropdown.toggle()
-                                    }) {
-                                        HStack{
-                                            Text("Invitations")
-                                            Image(systemName: "list.clipboard.fill")
-                                        }
-    
+                if(leagueManager.leagues.count > 0){
+                    ToolbarItem(placement: .bottomBar) {
+                        HStack(spacing: 0) {
+                            VStack {
+                                Image(systemName: "person.line.dotted.person")
+                                    .foregroundColor(selectedTab == 0 ? .blue : .gray) // Highlight if selected
+                                Spacer()
+                                Text("Leagues")
+                                    .foregroundColor(selectedTab == 0 ? .blue : .gray) // Highlight if selected
+                                    .onTapGesture {
+                                        selectedTab = 0
+                                        showCreateLeague = false
+                                        showCode = false
                                     }
-                                    .popover(isPresented: $showDropdown, arrowEdge: .bottom) {
-                                        ChallengeListView(matchupManager: matchupManager)
+                            }
+                            Spacer()
+                            VStack {
+                                Image(systemName: "rectangle.center.inset.filled.badge.plus")
+                                    .foregroundColor(selectedTab == 1 ? .blue : .gray) // Highlight if selected
+                                Spacer()
+                                Text("Create a League")
+                                    .foregroundColor(selectedTab == 1 ? .blue : .gray) // Highlight if selected
+                                    .onTapGesture {
+                                        selectedTab = 1
+                                        showCreateLeague = true
+                                        showCode = false
                                     }
-                                }
-                
+                            }
+                            Spacer()
+                            VStack {
+                                Image(systemName: "link.badge.plus")
+                                    .foregroundColor(selectedTab == 2 ? .blue : .gray) // Highlight if selected
+                                Spacer()
+                                Text("Join a League")
+                                    .foregroundColor(selectedTab == 2 ? .blue : .gray) // Highlight if selected
+                                    .onTapGesture {
+                                        selectedTab = 2
+                                        showCreateLeague = false
+                                        showCode = true
+                                    }
+                            }
+                        }
+                    }
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
                         Text("Logout")
-                        Image(systemName: "power") // Replace with your preferred SF Symbol for power/logout
                     }
                     .foregroundColor(.red) // Use a bold color for logout
                     .onTapGesture {
@@ -91,7 +180,10 @@ struct AppView: View {
          // Perform data fetching using matchupManager
          matchupManager.authToken = authViewModel.authToken
          Task {
-             matchupManager.findAllMatchups()
+//             matchupManager.findAllMatchups()
+//             leagueManager.findLeague { league in
+//                 
+//             }
              loading = false
          }
          

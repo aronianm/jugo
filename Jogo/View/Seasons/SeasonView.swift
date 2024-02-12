@@ -17,20 +17,6 @@ struct SeasonView: View {
         Group {
             if let season = season {
                 VStack{
-                    // Display season stats
-                    HStack {
-                        SeasonStatsView(title: season.matchup?.opponentTitle() ?? "Opponent", value: "\(season.userOneWins)")
-                        Spacer()
-                        SeasonStatsView(title: season.matchup?.userTitle() ?? "User", value: "\(season.userOneWins)")
-                    }
-                    .padding(10)
-                    .background(Color.secondary)
-                    .cornerRadius(8)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.secondary, lineWidth: 2)
-                    )
-                    Spacer()
                     ScrollView(.horizontal, showsIndicators: true) {
                         ScrollViewReader { scrollViewProxy in
                             HStack(spacing: 10) {

@@ -15,9 +15,15 @@ class HealthDataManager: ObservableObject {
     @Published var exerciseMinutes: Double = 0
     @Published var standHours: Double = 0
     
+    // Properties to store health goals
+    @Published var moveGoal: Double = 0.0
+    @Published var exerciseGoal: Double = 0.0
+    @Published var standGoal: Double = 0.0
+    
     init() {
         requestAuthorization()
         loadHealthData()
+        fetchHealthGoals()
     }
     private func roundToTwoDecimalPlaces(_ value: Double) -> Double {
             return (value * 100).rounded() / 100
@@ -26,7 +32,6 @@ class HealthDataManager: ObservableObject {
     func formattedValue(value: Double) -> String {
             return String(format: "%.1f", value)
     }
-    
     private func requestAuthorization() {
         let healthTypes: Set<HKSampleType> = [
             HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
@@ -68,5 +73,35 @@ class HealthDataManager: ObservableObject {
         }
         
         healthStore.execute(query)
+    }
+    
+    private func fetchHealthGoals() {
+        let moveGoalType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!
+        let exerciseGoalType = HKObjectType.quantityType(forIdentifier: .appleExerciseTime)!
+        // For stand goal, you can set a default value or fetch it from somewhere else
+        let standGoalType = HKObjectType.quantityType(forIdentifier: .appleStandTime)!
+        
+        healthStore.preferredUnits(for: [moveGoalType, exerciseGoalType]) { preferredUnits, error in
+            if let error = error {
+                print("Error fetching preferred units: \(error)")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                if let moveGoalUnit = preferredUnits[moveGoalType] {
+                    let moveGoalQuantity = HKQuantity(unit: HKUnit.kilocalorie(), doubleValue: 1)
+                    self.moveGoal = moveGoalQuantity.doubleValue(for: .kilocalorie())
+                }
+                if let exerciseGoalUnit = preferredUnits[exerciseGoalType] {
+                    let exerciseGoalQuantity = HKQuantity(unit: HKUnit.minute(), doubleValue: 1)
+                    self.exerciseGoal = exerciseGoalQuantity.doubleValue(for: .minute())
+                }
+                
+                if let standGoalUnit = preferredUnits[standGoalType] {
+                    let exerciseGoalQuantity = HKQuantity(unit: HKUnit.hour(), doubleValue: 1)
+                    self.exerciseGoal = exerciseGoalQuantity.doubleValue(for: .minute())
+                }
+            }
+        }
     }
 }

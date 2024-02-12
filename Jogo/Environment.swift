@@ -7,10 +7,10 @@
 
 import Foundation
 
+
+
 enum Environment {
     static var apiBaseURL: String {
-//         return "http://18.188.182.174"
-         return "http://michaels-macbook-air.local:3001"
-      
+        return "http://michaels-macbook-air.local:3001"
     }
 }

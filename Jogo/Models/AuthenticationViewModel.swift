@@ -10,6 +10,7 @@ import SwiftUI
 class AuthenticationViewModel: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var authToken: String = ""
+    @Published var userId:Int = 0
     @Published var accessDenied:Bool = false
     @Published var user: User?
     let baseURL = Environment.apiBaseURL
@@ -27,6 +28,7 @@ class AuthenticationViewModel: ObservableObject {
 
     private func saveAuthTokenToUserDefaults() {
         UserDefaults.standard.set(authToken, forKey: "AuthToken")
+        UserDefaults.standard.set(userId, forKey: "userId")
         UserDefaults.standard.synchronize()
     }
 
@@ -68,18 +70,20 @@ class AuthenticationViewModel: ObservableObject {
                 do {
                     let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
                     print("JSON Response: \(jsonResponse)")
-                    
+                    if let jsonDict = jsonResponse as? [String: Any], let userId = jsonDict["userId"] as? Int {
+                        self.userId = userId
+                    }
                     if let token = (headers as? [String: Any])?["Authorization"] as? String {
                        
                         // Update UI-related components on the main thread
                         self.authToken = token
-                        self.saveAuthTokenToUserDefaults()
                         self.handleLoginSuccess()
                         completion(nil) // Success, so call completion with nil error
                     } else {
                         print("Missing Authorization key in response headers.")
                         completion(NetworkError.missingAuthorizationKey)
                     }
+                    self.saveAuthTokenToUserDefaults()
                 } catch {
                     print("Error decoding response: \(error)")
                     completion(error) // Pass decoding error to completion

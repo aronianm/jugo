@@ -12,17 +12,7 @@ struct MatchupView: View {
     var body: some View {
        
         VStack{
-            HStack(alignment: .center) {
-                Spacer()
-                Text(matchup.opponentTitle())
-                    .font(.title)
-                    .foregroundColor(ColorTheme.white)
-                    .padding()
-                Spacer()
-            }
-            .background(ColorTheme.background)
             HStack{
-                
                 VStack {
                     List {
                         ForEach(matchup.seasons ?? [], id: \.id) { season in

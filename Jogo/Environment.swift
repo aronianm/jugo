@@ -11,6 +11,10 @@ import Foundation
 
 enum Environment {
     static var apiBaseURL: String {
-        return "http://michaels-macbook-air.local:3001"
+        #if DEBUG
+            return "http://michaels-macbook-air.local:3001"
+        #else
+            return "http://www.fogo-fitness.com/production"
+        #endif
     }
 }

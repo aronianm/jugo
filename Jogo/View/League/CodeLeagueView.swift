@@ -38,6 +38,9 @@ struct CodeLeagueView: View {
         .background(ColorTheme.accent.opacity(0.9)) // Use a light gray background
         .cornerRadius(20) // Apply corner radius to VStack
         .padding(20) // Add padding to VStack
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     }
     
     

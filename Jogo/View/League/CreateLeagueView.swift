@@ -10,33 +10,39 @@ import SwiftUI
 struct CreateLeagueView: View {
     @State private var leagueName = ""
     @State private var numberOfWeeks = ""
+    @State private var numberOfUsers = ""
     @State private var isLoading = false
     @State private var showAlert = false
+    
     var leagueManager:LeagueManager
+    @Binding var showCreateLeague:Bool
     
     var body: some View {
         VStack {
             Text("Create a League")
-                .font(.largeTitle)
+                .font(.headline)
                 .padding()
                 .foregroundColor(ColorTheme.white)
             
-            VStack(spacing: 20) {
+           
                 TextField("League Name", text: $leagueName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
-                
-                TextField("Number of Weeks", text: $numberOfWeeks)
-                    .keyboardType(.numberPad)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                    .onChange(of: numberOfWeeks) { newValue in
-                        if let number = Int(newValue), !(1...8).contains(number) {
-                            // If the entered value is not within the range 1...8,
-                            // update the value to be within that range
-                            numberOfWeeks = String(max(min(number, 8), 1))
+                HStack{
+                    TextField("Number of Users", text: $numberOfUsers)
+                        .keyboardType(.numberPad)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    TextField("Number of Weeks", text: $numberOfWeeks)
+                        .keyboardType(.numberPad)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .onChange(of: numberOfWeeks) { newValue in
+                            if let number = Int(newValue), !(1...8).contains(number) {
+                                // If the entered value is not within the range 1...8,
+                                // update the value to be within that range
+                                numberOfWeeks = String(max(min(number, 8), 1))
+                            }
                         }
-                    }
+                }
                 Button(action: createLeague) {
                     Text("Create League")
                         .foregroundColor(.white)
@@ -44,19 +50,12 @@ struct CreateLeagueView: View {
                         .background(ColorTheme.accent)
                         .cornerRadius(10)
                 }
-
                 Spacer()
-            }
-            .padding()
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text("Success"), message: Text("League created successfully"), dismissButton: .default(Text("OK")))
-            }
+            
         }
-        .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(false)
-        .background(ColorTheme.accent.opacity(0.9)) // Use a light gray background
-        .cornerRadius(20) // Apply corner radius to VStack
-        .padding(20) // Add padding to VStack
+        .background(ColorTheme.accent.opacity(0.4))
+        .cornerRadius(20)
     }
     
     func createLeague() {
@@ -68,11 +67,12 @@ struct CreateLeagueView: View {
         isLoading = true
         
 //        // Assuming you have a function to make the API POST request
-        leagueManager.createLeague(leagueName: leagueName, numberOfWeeks: numberOfWeeksInt) { result in
+        leagueManager.createLeague(leagueName: leagueName, numberOfWeeks: numberOfWeeksInt, numberOfUsers: Int(numberOfUsers)!) { result in
             isLoading = false
             switch result {
             case .success:
-                showAlert = true
+                showCreateLeague = false
+                leagueManager.getLeagues()
             case .failure(let error):
                 print("Failed to create league: \(error)")
             }

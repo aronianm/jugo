@@ -12,6 +12,7 @@ class LeagueManager: ObservableObject {
     
     @Published var league:League?
     @Published var leagues:[League] = []
+    @Published var matchupManager:MatchupManager = MatchupManager()
     
     let baseURL = Environment.apiBaseURL
     var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
@@ -81,54 +82,79 @@ class LeagueManager: ObservableObject {
         }.resume()
     }
     
-    func createLeague(leagueName: String, numberOfWeeks: Int, completion: @escaping (Result<Void, Error>) -> Void) {
-            let parameters: [String: Any] = ["league":[
-                "leagueName": leagueName,
-                "numberOfWeeks": numberOfWeeks
-            ]]
+    func createLeague(leagueName: String, numberOfWeeks: Int, numberOfUsers: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+        let parameters: [String: Any] = ["league":[
+            "leagueName": leagueName,
+            "numberOfWeeks": numberOfWeeks,
+            "numberOfUsersNeeded": numberOfUsers
+        ]]
         
-            guard let url = URL(string: "\(baseURL)/leagues/") else {
+        guard let url = URL(string: "\(baseURL)/leagues/") else {
+            completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
+
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: [])
+            request.httpBody = jsonData
+        } catch {
+            completion(.failure(error))
+            return
+        }
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
                 return
             }
 
-            var request = URLRequest(url: url)
-        
-            request.httpMethod = "POST"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
-
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: [])
-                request.httpBody = jsonData
-            } catch {
-                print("Error encoding JSON: \(error)")
+            guard let data = data else {
+                completion(.failure(NSError(domain: "No data received", code: 0, userInfo: nil)))
                 return
             }
+
+            self.getLeagues()
+            completion(.success(())) 
+        }.resume()
+    }
+    
+    func joinLeague(code:String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let parameters: [String: Any] = ["league":[
+            "code": code
+        ]]
         
-            
+        guard let url = URL(string: "\(baseURL)/leagues/join") else {
+            completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
+            return
+        }
 
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error: \(error)")
-                    return
-                }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
 
-                guard let data = data else {
-                    print("No data received")
-                    return
-                }
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: [])
+            request.httpBody = jsonData
+        } catch {
+            completion(.failure(error))
+            return
+        }
 
-                // Handle response data here
-                // For example, you can decode the response JSON data
-                // to extract any relevant information
-                do {
-                    let responseJson = try JSONSerialization.jsonObject(with: data, options: [])
-                    print("Response: \(responseJson)")
-                    // You can perform additional handling of the response data here
-                } catch {
-                    print("Error decoding response JSON: \(error)")
-                }
-            }.resume()
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            self.getLeagues()
+            completion(.success(()))
+        }.resume()
     }
     
 }

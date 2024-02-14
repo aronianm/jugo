@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct CodeLeagueView: View {
-    @Binding var code:String
+    var leagueManager:LeagueManager
+    @State var code:String = ""
+    @Binding var showCode:Bool
     var body: some View {
         VStack {
             Text("Code for your league")
@@ -24,9 +26,33 @@ struct CodeLeagueView: View {
                 .padding([.horizontal, .bottom], 20) // Add horizontal and bottom padding
             
             Spacer()
+            Button(action: joinLeague) {
+                Text("Join League")
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(ColorTheme.accent)
+                    .cornerRadius(10)
+            }
+            Spacer()
         }
         .background(ColorTheme.accent.opacity(0.9)) // Use a light gray background
         .cornerRadius(20) // Apply corner radius to VStack
         .padding(20) // Add padding to VStack
+    }
+    
+    
+    func joinLeague() {
+       
+        
+//        // Assuming you have a function to make the API POST request
+        leagueManager.joinLeague(code: code) { result in
+            switch result {
+            case .success:
+                leagueManager.getLeagues()
+                showCode = false
+            case .failure(let error):
+                print("Failed to create league: \(error)")
+            }
+        }
     }
 }

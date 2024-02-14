@@ -8,76 +8,64 @@
 import SwiftUI
 
 struct MatchupsView: View {
-     @State private var shouldNavigateBack = false
-     @StateObject var authViewModel: AuthenticationViewModel
-     @StateObject var matchupManager: MatchupManager
-     @State private var showInactiveMessage = false
+    var id: Int
+    @StateObject var matchupManager: MatchupManager
+    @State private var currentMatchupIndex: Int = 0
 
-     var body: some View {
-         NavigationView {
-             VStack {
-                 Text("Matchups")
-                     .font(.largeTitle)
-                     .fontWeight(.bold)
-                     .foregroundColor(ColorTheme.primary) // Replace with your primary color
-                     .multilineTextAlignment(.center)
-                 
-                     NavigationLink(
-                        destination: ContactListView(authViewModel: authViewModel, matchupManager: matchupManager, shouldNavigateBack: $shouldNavigateBack),
-                        isActive: $shouldNavigateBack,
-                        label: {
-                            Text("Find Opponent")
-                                .font(.headline)
-                                .foregroundColor(ColorTheme.white)
-                                .padding()
-                                .background(ColorTheme.primary) // Replace with your accent color
-                                .cornerRadius(10).onTapGesture {
-                                    shouldNavigateBack = true
-                                }
-                        }
-                     )
-                 
-                 
-                 
-                 HStack {
-                     Text(showInactiveMessage ? "User has not accepted your invitation yet" : "")
-                         .foregroundColor(ColorTheme.background)
-                         .background(ColorTheme.warning)
-                         .padding(5)
-                 }
-                 
-                 List {
-                     ForEach(matchupManager.matchups, id: \.id) { matchup in
-                         if matchup.userAccepted == true {
-                             NavigationLink(destination: MatchupView(matchup: matchup)) {
-                                 MatchupRowView(matchup: matchup)
-                             }
-                         } else {
-                             MatchupRowView(matchup: matchup)
-                                 .onTapGesture {
-                                     if !showInactiveMessage {
-                                         showInactiveMessage = true
-                                         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                             showInactiveMessage = false
-                                         }
-                                     }
-                                 }
-                         }
-                     } .onDelete { indexSet in
-                         // Handle deletion here
-                         for index in indexSet {
-                             let matchup = matchupManager.matchups[index]
-                             matchupManager.deleteMatchup(id: matchup.id)
-                         }
-                     }
-                 }
-                 .listStyle(.inset).refreshable {
-                     // This closure will be called when the user pulls down to refresh
-                     // You can perform any data fetching or refreshing logic here
-                     matchupManager.findAllMatchups()
-                 }
-             }
-             .navigationBarBackButtonHidden(true)
-         }
-     }
- }
+    var body: some View {
+        VStack { // Set alignment to leading
+            Text("Matchups")
+                .font(.caption)
+                .fontWeight(.bold)
+                .foregroundColor(Color.blue) // Replace with your primary color
+            
+            HStack {
+                Button("Previous Matchup") {
+                    if currentMatchupIndex > 0 {
+                        currentMatchupIndex -= 1
+                    }
+                }
+                .disabled(currentMatchupIndex == 0) // Disable button if on the first matchup
+                
+                Spacer()
+                
+                Button("Next Matchup") {
+                    if currentMatchupIndex < matchupManager.matchups.count - 1 {
+                        currentMatchupIndex += 1
+                    }
+                }
+                .disabled(currentMatchupIndex == matchupManager.matchups.count - 1) // Disable button if on the last matchup
+            }
+            .padding()
+            
+            if let currentMatchup = matchupManager.matchups[safe: currentMatchupIndex] {
+                MatchupRowView(matchup: currentMatchup)
+            } else {
+                Text("No matchup available") // Display a placeholder message if no matchup is available
+            }
+            
+            Spacer()
+        }.refreshable {
+            await matchupManager.findLeagueMatchup(id: id, index: $currentMatchupIndex)
+          }
+        .task {
+            await matchupManager.findLeagueMatchup(id: id, index: $currentMatchupIndex)
+
+        }
+    }
+}
+
+struct MatchupsView_Previews: PreviewProvider {
+    static var previews: some View {
+        let matchupManager = MatchupManager()
+        let matchup = Matchup(id: 1, isActive: true, isFinalized: false, week: 1,
+                              userOne: User(id: 1, fname: "User One", lname: "User Two"),
+                              currentUserScore: 10,
+                              userTwo: User(id: 2, fname: "Mike", lname: "Aronian"),
+                              opponentScore: 50,
+                              currentUser: 1)
+        matchupManager.matchups = [matchup] // Assign a mock matchup to the matchups array
+        
+        return MatchupsView(id: 26, matchupManager: matchupManager) // Initialize MatchupsView with mock data
+    }
+}

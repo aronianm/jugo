@@ -10,7 +10,6 @@ import SwiftUI
 struct MatchupView: View {
     var matchup:Matchup
     var body: some View {
-       
         VStack{
             HStack{
                 VStack {
@@ -23,9 +22,6 @@ struct MatchupView: View {
             }
             Spacer()
         }.background(ColorTheme.accent)
-                 
-        
-        
     }
 }
 
@@ -35,6 +31,6 @@ struct MatchupView: View {
 
     let season = Season(id: 1, userOneWins: 2, userTwoWins: 1,  seasonMatchup: [SeasonMatchup(id: 2, week: 2, season_id: 1, userOneDailyScore: 15.2, userOneTotalScore: 120.0, userTwoDailyScore: 18.7, userTwoTotalScore: 130.0, userOneFormattedScore: 10.0, userTwoFormattedScore: 10.0)], matchup_id: 1)
 
-    let matchup = Matchup(id: 1, isActive: true, isFinalized: false, userAccepted: true, seasons: [season], userOne: userOne, userTwo: userTwo, currentUser: userOne.id)
+    let matchup = Matchup(id: 1, isActive: true, isFinalized: false, week: 1, seasons: [season], userOne: userOne, currentUserScore: 10, userTwo: userTwo, opponentScore: 10, currentUser: userOne.id)
     return MatchupView(matchup: matchup)
 }

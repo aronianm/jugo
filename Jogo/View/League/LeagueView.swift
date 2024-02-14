@@ -9,35 +9,37 @@ import SwiftUI
 
 struct LeagueView: View {
     var league:League
+    var leagueManager:LeagueManager
     @State var matchup:Matchup?
+    @State private var showLeagueCode = false
+    
     var body: some View {
         VStack {
             HStack {
-                Spacer()
-                Text(league.leagueName).font(.title) 
-                Spacer()
-            }
-            .padding()
-            VStack{
-                if(matchup != nil){
-                    MatchupRowView(matchup: matchup!)
+                if(league.userLeagues.count != league.numberOfUsersNeeded){
+                   
+                    Button("Show League Code") {
+                        showLeagueCode.toggle() // Toggle the state variable
+                    }
+                    .padding()
+                    
+                    if showLeagueCode  {
+                        Text(league.leagueCode!).onTapGesture {
+                            UIPasteboard.general.string = league.leagueCode!
+                        }
+                    }
                 }
             }
             VStack{
                 LeagueStandingsView(userLeagues: league.userLeagues)
-                
+                MatchupsView(id: league.id, matchupManager: leagueManager.matchupManager)
             }
-            
-            Spacer()
-        }.onAppear {
-            getCurrentLeagueMatchup()
         }
     }
     
     func getCurrentLeagueMatchup() {
         let baseURL = Environment.apiBaseURL
         let authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
-        let userId =  UserDefaults.standard.string(forKey: "userId") ?? ""
       
         let url = URL(string: "\(baseURL)/leagues/\(league.id)")!
         var request = URLRequest(url: url)
@@ -45,11 +47,6 @@ struct LeagueView: View {
         request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         URLSession.shared.dataTask(with: request) { data, response, error in
-            // Check for errors
-            if let error = error {
-                return
-            }
-            
             // Check if data is available
             guard let data = data else {
                 return

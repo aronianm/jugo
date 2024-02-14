@@ -14,17 +14,13 @@ struct LeagueStandingsView: View {
     
     var body: some View {
         VStack {
-            Text("Standings")
-                .font(.title)
-                .foregroundColor(ColorTheme.white)
-                .padding()
-            
             HStack {
                 Text("User")
-                Spacer()
+                    .frame(maxWidth: .infinity, alignment: .leading) // Align text to the left
                 Text("Wins")
-                Spacer()
+                    .frame(maxWidth: .infinity, alignment: .center) // Align text to the center
                 Text("Losses")
+                    .frame(maxWidth: .infinity, alignment: .trailing) // Align text to the right
             }
             .padding(.horizontal)
             .font(.headline)
@@ -34,16 +30,15 @@ struct LeagueStandingsView: View {
             ForEach(userLeagues) { userLeague in
                 HStack {
                     Text(userLeague.user.formattedName())
-                    Spacer()
+                        .frame(maxWidth: .infinity, alignment: .leading) // Align text to the left
                     Text("\(userLeague.wins)")
-                    Spacer()
+                        .frame(maxWidth: .infinity, alignment: .center) // Align text to the center
                     Text("\(userLeague.losses)")
+                        .frame(maxWidth: .infinity, alignment: .trailing) // Align text to the right
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 8)
             }
-            
-            Spacer()
         }
     }
 }

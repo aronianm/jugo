@@ -16,70 +16,76 @@ class MatchupManager: ObservableObject {
     @Published var challengeInvitations: [Matchup] = []
     @Published var activeMatch:Matchup?
     @Published var isChallengeSent:Bool = false
+    @Published var activeIndex:Int = 0
 
     @State var activeUser:Int?
+    
     
     let healthManager = HealthDataManager()
     var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
     var userExists:Bool = false
     let baseURL = Environment.apiBaseURL
     
-    func updateAllScores() {
+    func updateAllScores(id:Int, index:Binding<Int>) {
         let activeEnergy = healthManager.activeEnergy
         let standHours = healthManager.standHours
         let exerciseMinutes = healthManager.exerciseMinutes
 
         let sum = activeEnergy + standHours + exerciseMinutes
 
-        for matchup in self.matchups {
-            guard let url = URL(string: "\(baseURL)/matchups/\(matchup.id)/update_scores") else {
-                // Handle the case where the URL is invalid
-                continue
-            }
-
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-            let parameters: [String: Any] = [
-                "score": sum
-            ]
-
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: parameters)
-                request.httpBody = jsonData
-
-                URLSession.shared.dataTask(with: request) { data, response, error in
-                    if let error = error {
-                        // Handle the error from the data task
-                        print("Error updating scores: \(error)")
-                        return
-                    }
-
-                    guard let data = data else {
-                        // Handle the case where no data is returned
-                        return
-                    }
-
-                    DispatchQueue.main.async {
-                        do {
-                            let decoder = JSONDecoder()
-                            let decodedMatchup = try decoder.decode(Matchup.self, from: data)
-
-                            // Update the existing matchup in self.matchups with the new data
-                            if let index = self.matchups.firstIndex(where: { $0.id == decodedMatchup.id }) {
-                                self.matchups[index] = decodedMatchup
-                            }
-                        } catch {
-                            // Handle the error if decoding fails
-                            print("Error decoding response: \(error)")
+        for (i, matchup) in self.matchups.enumerated() {
+            if(matchup.isActive){
+                index.wrappedValue = i
+                guard let url = URL(string: "\(baseURL)/leagues/\(id)/matchups/\(matchup.id)/update_scores") else {
+                    // Handle the case where the URL is invalid
+                    continue
+                }
+                
+                var request = URLRequest(url: url)
+                request.httpMethod = "POST"
+                request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                
+                let parameters: [String: Any] = [
+                    "score": sum
+                ]
+                
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: parameters)
+                    request.httpBody = jsonData
+                    
+                    URLSession.shared.dataTask(with: request) { data, response, error in
+                        if let error = error {
+                            // Handle the error from the data task
+                            print("Error updating scores: \(error)")
+                            return
                         }
-                    }
-                }.resume()
-            } catch {
-                // Handle the error if JSON serialization fails
-                print("Error serializing JSON: \(error)")
+                        
+                        guard let data = data else {
+                            // Handle the case where no data is returned
+                            return
+                        }
+                        
+                        DispatchQueue.main.async {
+                            do {
+                                let decoder = JSONDecoder()
+                                let decodedMatchup = try decoder.decode(Matchup.self, from: data)
+                                
+                                // Update the existing matchup in self.matchups with the new data
+                                if let index = self.matchups.firstIndex(where: { $0.id == decodedMatchup.id }) {
+                                    self.matchups[index] = decodedMatchup
+                                    self.activeIndex = index
+                                }
+                            } catch {
+                                // Handle the error if decoding fails
+                                print("Error decoding response: \(error)")
+                            }
+                        }
+                    }.resume()
+                } catch {
+                    // Handle the error if JSON serialization fails
+                    print("Error serializing JSON: \(error)")
+                }
             }
         }
     }
@@ -195,8 +201,8 @@ class MatchupManager: ObservableObject {
         }.resume()
     }
     // Additional functions for managing matchups can be added here
-    func findAllMatchups()  {
-            guard let url = URL(string: "\(baseURL)/matchups") else {
+    func findLeagueMatchup(id: Int, index: Binding<Int>) async {
+            guard let url = URL(string: "\(baseURL)/leagues/\(id)/matchups") else {
                 return
             }
             var request = URLRequest(url: url)
@@ -212,12 +218,13 @@ class MatchupManager: ObservableObject {
                 guard let data = data else {
                     return
                 }
-
+                print("Decoding")
                 do {
                     let decoder = JSONDecoder()
+                   
                     let decodedMatchups = try decoder.decode([Matchup].self, from: data)
                     self.matchups = decodedMatchups
-                    self.updateAllScores()
+                    self.updateAllScores(id: id, index: index)
                 } catch {
                     print("Error \(error)")
                 }

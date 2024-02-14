@@ -12,5 +12,6 @@ struct League:  Codable, Identifiable {
     var leagueName: String
     var leagueCode: String?
     var numberOfWeeks:Int
+    var numberOfUsersNeeded:Int?
     var userLeagues:[UserLeague]
 }

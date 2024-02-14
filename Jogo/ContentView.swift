@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var authViewModel = AuthenticationViewModel()
+    @ObservedObject var authViewModel:AuthenticationViewModel
+    @StateObject var matchupManager:MatchupManager
+    @StateObject var leagueManager:LeagueManager
     var body: some View {
         Group {
             if(authViewModel.isLoggedIn){
-                AppView(authViewModel: authViewModel)
+                AppView(authViewModel: authViewModel, matchupManager:matchupManager, leagueManager:leagueManager)
             }else{
                 LoginView(authViewModel: authViewModel)
             }
@@ -22,5 +24,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(authViewModel: AuthenticationViewModel(), matchupManager: MatchupManager(), leagueManager:LeagueManager())
 }

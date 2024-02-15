@@ -200,7 +200,94 @@ class MatchupManager: ObservableObject {
             }
         }.resume()
     }
-    // Additional functions for managing matchups can be added here
+    func refreshMatchups(id: Int){
+        guard let url = URL(string: "\(baseURL)/leagues/\(id)/matchups") else {
+            return
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            if let error = error {
+                return
+            }
+
+            guard let data = data else {
+                return
+            }
+            print("Decoding")
+            do {
+                let decoder = JSONDecoder()
+               
+                let decodedMatchups = try decoder.decode([Matchup].self, from: data)
+                self.matchups = decodedMatchups
+                let activeEnergy = self.healthManager.activeEnergy
+                let standHours = self.healthManager.standHours
+                let exerciseMinutes = self.healthManager.exerciseMinutes
+
+                let sum = activeEnergy + standHours + exerciseMinutes
+
+                for (i, matchup) in self.matchups.enumerated() {
+                    if(matchup.isActive){
+                        guard let url = URL(string: "\(self.baseURL)/leagues/\(id)/matchups/\(matchup.id)/update_scores") else {
+                            // Handle the case where the URL is invalid
+                            continue
+                        }
+                        
+                        var request = URLRequest(url: url)
+                        request.httpMethod = "POST"
+                        request.addValue("\(self.authToken)", forHTTPHeaderField: "Authorization")
+                        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                        
+                        let parameters: [String: Any] = [
+                            "score": sum
+                        ]
+                        
+                        do {
+                            let jsonData = try JSONSerialization.data(withJSONObject: parameters)
+                            request.httpBody = jsonData
+                            
+                            URLSession.shared.dataTask(with: request) { data, response, error in
+                                if let error = error {
+                                    // Handle the error from the data task
+                                    print("Error updating scores: \(error)")
+                                    return
+                                }
+                                
+                                guard let data = data else {
+                                    // Handle the case where no data is returned
+                                    return
+                                }
+                                
+                                DispatchQueue.main.async {
+                                    do {
+                                        let decoder = JSONDecoder()
+                                        let decodedMatchup = try decoder.decode(Matchup.self, from: data)
+                                        
+                                        // Update the existing matchup in self.matchups with the new data
+                                        if let index = self.matchups.firstIndex(where: { $0.id == decodedMatchup.id }) {
+                                            self.matchups[index] = decodedMatchup
+                                            self.activeIndex = index
+                                        }
+                                    } catch {
+                                        // Handle the error if decoding fails
+                                        print("Error decoding response: \(error)")
+                                    }
+                                }
+                            }.resume()
+                        } catch {
+                            // Handle the error if JSON serialization fails
+                            print("Error serializing JSON: \(error)")
+                        }
+                    }
+                }
+            } catch {
+                print("Error \(error)")
+            }
+        }.resume()
+    }
     func findLeagueMatchup(id: Int, index: Binding<Int>) async {
             guard let url = URL(string: "\(baseURL)/leagues/\(id)/matchups") else {
                 return

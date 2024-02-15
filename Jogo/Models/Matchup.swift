@@ -12,12 +12,11 @@ struct Matchup: Codable, Identifiable {
     var isActive: Bool
     var isFinalized: Bool
     var week:Int
-    var seasons:[Season]?
     var userOne:User
-    var currentUserScore:Float
     var userTwo:User
-    var opponentScore:Float
-    var currentUser:Int
+    var userOneScore:Float
+    var userTwoScore:Float
+    var currentUser:Int? = 0
     
     
     // Function to round a float to two decimal places and return it as a string
@@ -27,33 +26,38 @@ struct Matchup: Codable, Identifiable {
     
     // Function to return opponent's score rounded to two decimal places
     func opponentScoreRounded() -> String {
-        return roundedScore(opponentScore)
+        return roundedScore(userOneScore)
+    }
+    
+    func isUser() -> Bool {
+        self.userOne.id == self.currentUser || self.userTwo.id == self.currentUser
     }
     
     // Function to return current user's score rounded to two decimal places
     func currentUserScoreRounded() -> String {
-        return roundedScore(currentUserScore)
+        return roundedScore(userTwoScore)
     }
     
     func opponent() -> User {
-        let u = currentUser == userOne.id ? userTwo : userOne
+        let u = userOne
         return u
     }
     func userScore() -> String {
         return " "
     }
     func user() -> User {
-        let u = currentUser == userOne.id ? userOne : userTwo
+        let u = userTwo
         return u
     }
     func opponentTitle() -> String {
-        let u = currentUser == userOne.id ? userTwo : userOne
+        let u = userOne
         return "\(u.fname) \(u.lname)"
     }
     
     func userTitle() -> String {
-        let u = currentUser != userOne.id ? userTwo : userOne
+        let u = userTwo
         return "\(u.fname) \(u.lname)"
+        
     }
 }
 

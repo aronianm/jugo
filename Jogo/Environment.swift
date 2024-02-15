@@ -14,7 +14,7 @@ enum Environment {
         #if DEBUG
             return "http://michaels-macbook-air.local:3001"
         #else
-            return "http://www.fogo-fitness.com/production"
+            return "http://michaels-macbook-air.local:3001"
         #endif
     }
 }

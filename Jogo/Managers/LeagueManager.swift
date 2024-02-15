@@ -42,7 +42,9 @@ class LeagueManager: ObservableObject {
             do {
                 let decoder = JSONDecoder()
                 let decodedMatchup = try decoder.decode([League].self, from: data)
-                self.leagues = decodedMatchup
+                DispatchQueue.main.async {
+                    self.leagues = decodedMatchup
+                }
             } catch {
                 print("Error \(error)")
             }

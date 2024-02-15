@@ -15,31 +15,33 @@ struct LeagueStandingsView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("User")
+                Text("User").foregroundColor(ColorTheme.white)
                 Spacer()
-                Text("Wins")
+                Text("Wins").foregroundColor(ColorTheme.white)
                 Spacer()
-                Text("Losses")
+                Text("Losses").foregroundColor(ColorTheme.white)
             }
             .padding(.horizontal)
             .font(.headline)
             
             Divider()
             
-            ForEach(userLeagues) { userLeague in
-                HStack {
-                    Text(userLeague.user.formattedName())
-                        .frame(maxWidth: .infinity, alignment: .leading) // Align text to the left
-                    Spacer()
-                    Text("\(userLeague.wins)")
-                        .frame(maxWidth: .infinity, alignment: .center) // Align text to the center
-                    Spacer()
-                    Text("\(userLeague.losses)")
-                        .frame(maxWidth: .infinity, alignment: .trailing) // Align text to the right
+            ScrollView {
+                ForEach(userLeagues) { userLeague in
+                    HStack {
+                        Text(userLeague.user.formattedName()).foregroundColor(ColorTheme.white)
+                            .frame(maxWidth: .infinity, alignment: .leading) // Align text to the left
+                        Spacer()
+                        Text("\(userLeague.wins)").foregroundColor(ColorTheme.white)
+                            .frame(maxWidth: .infinity, alignment: .center) // Align text to the center
+                        Spacer()
+                        Text("\(userLeague.losses)").foregroundColor(ColorTheme.white)
+                            .frame(maxWidth: .infinity, alignment: .trailing) // Align text to the right
+                    }
+                    .padding(.horizontal, 8) // Adjust horizontal padding
+                    .padding(.vertical, 4) // Adjust vertical padding
                 }
-                .padding(.horizontal, 8) // Adjust horizontal padding
-                .padding(.vertical, 4) // Adjust vertical padding
             }
-        }
+        }.background(ColorTheme.background)
     }
 }

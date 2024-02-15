@@ -33,6 +33,7 @@ struct LeagueView: View {
             VStack{
                 LeagueStandingsView(userLeagues: league.userLeagues)
                 MatchupsView(id: league.id, matchupManager: leagueManager.matchupManager)
+                Spacer()
             }
         }
     }

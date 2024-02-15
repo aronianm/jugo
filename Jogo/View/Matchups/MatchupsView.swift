@@ -10,7 +10,8 @@ import SwiftUI
 struct MatchupsView: View {
     var id: Int
     @StateObject var matchupManager: MatchupManager
-    @State private var currentMatchupIndex: Int = 0
+    @State private var currentMatchupIndex: Int = 1
+    @State var loading:Bool = true
 
     var body: some View {
         VStack { // Set alignment to leading
@@ -18,54 +19,42 @@ struct MatchupsView: View {
                 .font(.caption)
                 .fontWeight(.bold)
                 .foregroundColor(Color.blue) // Replace with your primary color
-            
-            HStack {
-                Button("Previous Matchup") {
-                    if currentMatchupIndex > 0 {
-                        currentMatchupIndex -= 1
-                    }
+            if(loading == false ){
+                HStack{
+                    Text("Week: \(currentMatchupIndex)")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundColor(ColorTheme.primary)
+                    Spacer()
+                    Text("Swipe to view next week").font(.caption)
                 }
-                .disabled(currentMatchupIndex == 0) // Disable button if on the first matchup
-                
-                Spacer()
-                
-                Button("Next Matchup") {
-                    if currentMatchupIndex < matchupManager.matchups.count - 1 {
-                        currentMatchupIndex += 1
-                    }
-                }
-                .disabled(currentMatchupIndex == matchupManager.matchups.count - 1) // Disable button if on the last matchup
+                ScrollView {
+                    ForEach(matchupManager.matchups.filter { $0.week == currentMatchupIndex }) { currentMatchup in
+                        MatchupRowView(matchup: currentMatchup).background(ColorTheme.background)
+                    }.padding(20)
+                }.background(ColorTheme.background).gesture(
+                    DragGesture()
+                        .onEnded { value in
+                            if value.translation.width > 100 { // Swipe right
+                                if currentMatchupIndex > 1 {
+                                    currentMatchupIndex -= 1
+                                }
+                            } else if value.translation.width < -100 { // Swipe left
+                                if matchupManager.matchups.filter { $0.week == currentMatchupIndex + 1 }.isEmpty == false {
+                                    currentMatchupIndex += 1
+                                }
+                            }
+                        }
+                )
+               
             }
-            .padding()
-            
-            if let currentMatchup = matchupManager.matchups[safe: currentMatchupIndex] {
-                MatchupRowView(matchup: currentMatchup)
-            } else {
-                Text("No matchup available") // Display a placeholder message if no matchup is available
-            }
-            
-            Spacer()
-        }.refreshable {
+        }.padding(5).border(Color.black, width: 1).refreshable {
             await matchupManager.findLeagueMatchup(id: id, index: $currentMatchupIndex)
           }
         .task {
             await matchupManager.findLeagueMatchup(id: id, index: $currentMatchupIndex)
+            loading = false
 
         }
-    }
-}
-
-struct MatchupsView_Previews: PreviewProvider {
-    static var previews: some View {
-        let matchupManager = MatchupManager()
-        let matchup = Matchup(id: 1, isActive: true, isFinalized: false, week: 1,
-                              userOne: User(id: 1, fname: "User One", lname: "User Two"),
-                              currentUserScore: 10,
-                              userTwo: User(id: 2, fname: "Mike", lname: "Aronian"),
-                              opponentScore: 50,
-                              currentUser: 1)
-        matchupManager.matchups = [matchup] // Assign a mock matchup to the matchups array
-        
-        return MatchupsView(id: 26, matchupManager: matchupManager) // Initialize MatchupsView with mock data
     }
 }

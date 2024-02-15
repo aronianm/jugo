@@ -11,66 +11,55 @@ struct MatchupRowView: View {
     var matchup: Matchup
     
     var body: some View {
-        VStack {
+        VStack(spacing: 5) {
             HStack {
-                Text("Week: \(matchup.week)")
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .foregroundColor(ColorTheme.primary)
-            }
-            HStack {
-                VStack(alignment: .center, spacing: 5) {
-                    Text(matchup.opponentTitle())
-                        .font(.custom("PixelFont", size: 20))
-                        .foregroundColor(matchup.isFinalized ? Color.gray : .white)
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                    
-                    Text("\(matchup.opponentScoreRounded())")
-                        .font(.custom("PixelFont", size: 20))
-                        .foregroundColor(matchup.isFinalized ? Color.gray : .white)
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                }
-                .frame(maxWidth: .infinity)
-                
+                ScoreView(title: matchup.opponentTitle(), score: matchup.opponentScoreRounded(), isFinalized: matchup.isFinalized, isUser: matchup.userOne.id == matchup.currentUser)
                 Spacer()
-                
-                VStack(alignment: .center, spacing: 5) {
-                    Text("You")
-                        .font(.custom("PixelFont", size: 20))
-                        .foregroundColor(matchup.isFinalized ? Color.gray : .white)
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                    
-                    Text("\(matchup.currentUserScoreRounded())")
-                        .font(.custom("PixelFont", size: 20))
-                        .foregroundColor(matchup.isFinalized ? Color.gray : .white)
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                }
-                .frame(maxWidth: .infinity)
+                ScoreView(title: matchup.userTitle(), score: matchup.currentUserScoreRounded(), isFinalized: matchup.isFinalized, isUser: matchup.userTwo.id == matchup.currentUser)
             }
-            .padding(16)
+            .padding(10) // Reduced padding
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .fill(backgroundGradient(matchup: matchup))
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(matchup.isFinalized ? Color.gray : Color.white, lineWidth: 2) // Adjusted stroke color based on isFinalized
+                            .stroke(matchup.isFinalized ? Color.gray : Color.white, lineWidth: 1) // Reduced stroke width
                     )
-                    .shadow(color: .black, radius: 5, x: 0, y: 2)
+                    .shadow(color: .black, radius: 3, x: 0, y: 1) // Reduced shadow radius
             )
         }
     }
 
-    private func backgroundGradient(matchup: Matchup) -> LinearGradient {
-        if matchup.opponentScoreRounded() > matchup.currentUserScoreRounded() {
-            return LinearGradient(gradient: Gradient(colors: [Color(red: 1.0, green: 0.8, blue: 0.8), Color(red: 0.8, green: 0.4, blue: 0.4)]), startPoint: .leading, endPoint: .trailing)
-        } else if matchup.opponentScoreRounded() < matchup.currentUserScoreRounded() {
-            return LinearGradient(gradient: Gradient(colors: [Color(red: 0.4, green: 0.8, blue: 0.4), Color(red: 0.4, green: 0.8, blue: 0.4)]), startPoint: .leading, endPoint: .trailing)
+    private func backgroundGradient(matchup: Matchup) -> Color {
+        if matchup.opponentScoreRounded() > matchup.currentUserScoreRounded() && matchup.isUser() {
+            return ColorTheme.red.opacity(0.5)
+        } else if matchup.opponentScoreRounded() < matchup.currentUserScoreRounded() && matchup.isUser() {
+            return ColorTheme.green.opacity(0.5)
         } else {
-            return LinearGradient(gradient: Gradient(colors: [ColorTheme.primary, ColorTheme.secondary]), startPoint: .leading, endPoint: .trailing)
+            return Color.gray
         }
     }
 }
 
-//#Preview {
-//    MatchupRowView()
-//}
+struct ScoreView: View {
+    var title: String
+    var score: String
+    var isFinalized: Bool
+    var isUser:Bool
+    
+    var body: some View {
+        VStack(alignment: .center, spacing: 2) {
+            HStack{
+                if(isUser){
+                    Image(systemName: "person")
+                }
+                Text(title)
+                    .font(.custom("PixelFont", size: 14)) // Reduced font size
+                    .foregroundColor(isFinalized ? Color.gray : .white)
+            }
+            Text("\(score)")
+                .font(.custom("PixelFont", size: 14)) // Reduced font size
+                .foregroundColor(isFinalized ? Color.gray : .white)
+        }
+    }
+}

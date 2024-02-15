@@ -35,7 +35,7 @@ class MatchupManager: ObservableObject {
 
         for (i, matchup) in self.matchups.enumerated() {
             if(matchup.isActive){
-                index.wrappedValue = i
+                index.wrappedValue = matchup.week
                 guard let url = URL(string: "\(baseURL)/leagues/\(id)/matchups/\(matchup.id)/update_scores") else {
                     // Handle the case where the URL is invalid
                     continue

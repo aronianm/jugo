@@ -13,6 +13,8 @@ struct User: Identifiable, Codable {
     var lname: String
     
     func formattedName() -> String {
-        return "\(fname) \(lname)"
+        let formattedFirstName = fname.capitalized
+        let formattedLastName = lname.capitalized
+        return "\(formattedFirstName) \(formattedLastName)"
     }
 }

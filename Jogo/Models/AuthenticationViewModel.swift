@@ -125,6 +125,7 @@ class AuthenticationViewModel: ObservableObject {
         authToken = ""
         UserDefaults.standard.removeObject(forKey: "AuthToken")
         UserDefaults.standard.synchronize()
+        
     }
 
     private func performRequest(url: URL, method: String, parameters: [String: Any], completion: @escaping (Result<(Data, [AnyHashable: Any]), Error>) -> Void) {

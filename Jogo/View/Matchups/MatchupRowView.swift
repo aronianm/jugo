@@ -19,20 +19,33 @@ struct MatchupRowView: View {
                     .foregroundColor(ColorTheme.primary)
             }
             HStack {
-                Text(matchup.opponentTitle())
-                    .font(.custom("PixelFont", size: 20)) // Use a pixelated font
-                    .foregroundColor(matchup.isFinalized ? Color.gray : .white) // Adjusted text color based on isFinalized
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                VStack(alignment: .center, spacing: 5) {
+                    Text(matchup.opponentTitle())
+                        .font(.custom("PixelFont", size: 20))
+                        .foregroundColor(matchup.isFinalized ? Color.gray : .white)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                    
+                    Text("\(matchup.opponentScoreRounded())")
+                        .font(.custom("PixelFont", size: 20))
+                        .foregroundColor(matchup.isFinalized ? Color.gray : .white)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                }
+                .frame(maxWidth: .infinity)
                 
-                Text("\(matchup.opponentScoreRounded())")
-                    .font(.custom("PixelFont", size: 20)) // Use a pixelated font
-                    .foregroundColor(matchup.isFinalized ? Color.gray : .white) // Adjusted text color based on isFinalized
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                Spacer()
                 
-                Text("\(matchup.currentUserScoreRounded())")
-                    .font(.custom("PixelFont", size: 20)) // Use a pixelated font
-                    .foregroundColor(matchup.isFinalized ? Color.gray : .white) // Adjusted text color based on isFinalized
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
+                VStack(alignment: .center, spacing: 5) {
+                    Text("You")
+                        .font(.custom("PixelFont", size: 20))
+                        .foregroundColor(matchup.isFinalized ? Color.gray : .white)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                    
+                    Text("\(matchup.currentUserScoreRounded())")
+                        .font(.custom("PixelFont", size: 20))
+                        .foregroundColor(matchup.isFinalized ? Color.gray : .white)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                }
+                .frame(maxWidth: .infinity)
             }
             .padding(16)
             .background(

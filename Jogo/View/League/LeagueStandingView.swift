@@ -16,11 +16,10 @@ struct LeagueStandingsView: View {
         VStack {
             HStack {
                 Text("User")
-                    .frame(maxWidth: .infinity, alignment: .leading) // Align text to the left
+                Spacer()
                 Text("Wins")
-                    .frame(maxWidth: .infinity, alignment: .center) // Align text to the center
+                Spacer()
                 Text("Losses")
-                    .frame(maxWidth: .infinity, alignment: .trailing) // Align text to the right
             }
             .padding(.horizontal)
             .font(.headline)
@@ -31,13 +30,15 @@ struct LeagueStandingsView: View {
                 HStack {
                     Text(userLeague.user.formattedName())
                         .frame(maxWidth: .infinity, alignment: .leading) // Align text to the left
+                    Spacer()
                     Text("\(userLeague.wins)")
                         .frame(maxWidth: .infinity, alignment: .center) // Align text to the center
+                    Spacer()
                     Text("\(userLeague.losses)")
                         .frame(maxWidth: .infinity, alignment: .trailing) // Align text to the right
                 }
-                .padding(.horizontal)
-                .padding(.vertical, 8)
+                .padding(.horizontal, 8) // Adjust horizontal padding
+                .padding(.vertical, 4) // Adjust vertical padding
             }
         }
     }

@@ -82,6 +82,44 @@ class LeagueManager: ObservableObject {
         }.resume()
     }
     
+    func deleteLeague(id: Int) {
+        
+        // Make delete request to server
+        let url = URL(string: "\(baseURL)/leagues/\(id)/leave_league")!
+        var request = URLRequest(url: url)
+        request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "DELETE"
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error deleting league: \(error)")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                // Ensure leagues array is not empty and leagues are properly populated
+                guard !self.leagues.isEmpty else {
+                    print("Leagues array is empty")
+                    return
+                }
+                
+                // Find the index of the league with ID equal to 1
+                if let index = self.leagues.firstIndex(where: { $0.id == id }) {
+                    // Remove the league at the found index
+                    self.leagues.remove(at: index)
+                    print("League at index \(index) deleted")
+                    
+                    // Call getLeagues to update leagues array
+                    self.getLeagues()
+                } else {
+                    // ID not found
+                    print("ID 1 not found in leagues array")
+                }
+            }
+        }.resume()
+    }
+    
     func createLeague(leagueName: String, numberOfWeeks: Int, numberOfUsers: Int, completion: @escaping (Result<Void, Error>) -> Void) {
         let parameters: [String: Any] = ["league":[
             "leagueName": leagueName,

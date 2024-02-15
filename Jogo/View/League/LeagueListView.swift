@@ -9,10 +9,11 @@ import SwiftUI
 
 struct LeagueListView: View {
     @ObservedObject var leagueManager: LeagueManager
-    
+    @State private var isShowingAlert = false
+    @State private var leagueIndexToDelete: Int?
     var body: some View {
         NavigationView {
-            List{
+            List {
                 ForEach(leagueManager.leagues) { league in
                     HStack {
                         Spacer()
@@ -21,8 +22,26 @@ struct LeagueListView: View {
                         Spacer()
                     }
                 }
-
-            }.listStyle(InsetGroupedListStyle()).background(ColorTheme.background)
+                .onDelete { indexSet in
+                    self.leagueIndexToDelete = indexSet.first
+                    self.isShowingAlert = true
+                }
+            }
+            .listStyle(InsetGroupedListStyle())
+            .background(ColorTheme.background)
+            .alert(isPresented: $isShowingAlert) {
+                        Alert(
+                            title: Text("Are you sure?"),
+                            message: Text("You are about to leave this league. Are you sure?"),
+                            primaryButton: .default(Text("Leave")) {
+                                if let index = self.leagueIndexToDelete {
+                                    let leagueIDToDelete = leagueManager.leagues[index].id
+                                    leagueManager.deleteLeague(id: leagueIDToDelete)
+                                }
+                            },
+                            secondaryButton: .cancel()
+                        )
+                    }
         }
     }
 }

@@ -31,9 +31,9 @@ struct MatchupRowView: View {
     }
 
     private func backgroundGradient(matchup: Matchup) -> Color {
-        if matchup.opponentScoreRounded() > matchup.currentUserScoreRounded() && matchup.isUser() {
+        if matchup.userTwoScore < matchup.userOneScore && matchup.isUser() {
             return ColorTheme.red.opacity(0.5)
-        } else if matchup.opponentScoreRounded() < matchup.currentUserScoreRounded() && matchup.isUser() {
+        } else if matchup.userTwoScore > matchup.userOneScore && matchup.isUser() {
             return ColorTheme.green.opacity(0.5)
         } else {
             return Color.gray

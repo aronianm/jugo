@@ -12,21 +12,35 @@ struct LeagueView: View {
     var leagueManager:LeagueManager
     @State var matchup:Matchup?
     @State private var showLeagueCode = false
+    @State private var copiedCode = false
     
     var body: some View {
         VStack {
             HStack {
-                if(league.userLeagues.count != league.numberOfUsersNeeded){
-                   
+                if (league.userLeagues.count != league.numberOfUsersNeeded) {
+                    
                     Button("Show League Code") {
                         showLeagueCode.toggle() // Toggle the state variable
                     }
                     .padding()
                     
-                    if showLeagueCode  {
-                        Text(league.leagueCode!).onTapGesture {
-                            UIPasteboard.general.string = league.leagueCode!
-                        }
+                    if showLeagueCode {
+                        Text(league.leagueCode!)
+                            .onTapGesture {
+                                UIPasteboard.general.string = league.leagueCode!
+                                copiedCode = true // Set copiedCode to true when the code is copied
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    copiedCode = false // Reset copiedCode after 2 seconds
+                                }
+                            }
+                            .padding()
+                            .background(ColorTheme.background)
+                            .foregroundColor(.white)
+                            .cornerRadius(5)
+                            .padding()
+                            .alert(isPresented: $copiedCode) {
+                                Alert(title: Text("Code Copied"), message: Text("The league code has been copied to the clipboard."), dismissButton: .default(Text("OK")))
+                            }
                     }
                 }
             }

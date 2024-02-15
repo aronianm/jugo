@@ -28,6 +28,21 @@ struct AppView: View {
                             Text("Welcome to Jogo")
                                 .foregroundColor(ColorTheme.white)
                                 .font(.title)
+                            VStack{
+                                    Text("""
+                                    Click on 'Create a League' and start competing against users
+                                    
+                                    
+                                    Click on 'Join a League' and paste the code from an existing league to join
+                                    """)
+                                        .lineLimit(nil).multilineTextAlignment(.leading)
+                                    
+                                }
+                                .padding()
+                                .foregroundColor(ColorTheme.white)
+                                .background(ColorTheme.accent)
+                                .cornerRadius(10)
+                                .padding()
                             HStack{
                                 Spacer()
                                 Button(action: {
@@ -73,12 +88,6 @@ struct AppView: View {
                     }
                 Spacer()
             }
-            .onAppear {
-                // Fetch data or perform other setup actions
-                if authViewModel.user == nil {
-                    authViewModel.handleLoginSuccess()
-                }
-            }
             .toolbar {
                 if(leagueManager.leagues.count > 0 || showCode == true || showCreateLeague == true){
                     ToolbarItem(placement: .bottomBar) {
@@ -92,6 +101,19 @@ struct AppView: View {
                                         .foregroundColor(selectedTab == 0 ? .blue : .gray) // Highlight if selected
                                         .onTapGesture {
                                             selectedTab = 0
+                                            showCreateLeague = false
+                                            showCode = false
+                                        }
+                                }
+                                Spacer()
+                            }else if(leagueManager.leagues.count == 0 && (showCode == true || showCreateLeague == true)) {
+                                VStack {
+                                    Image(systemName: "arrowshape.backward.fill")
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                    Text("Back")
+                                        .foregroundColor(.gray)
+                                        .onTapGesture {
                                             showCreateLeague = false
                                             showCode = false
                                         }

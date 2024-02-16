@@ -1,6 +1,6 @@
 //
 //  MatchupManager.swift
-//  Jogo
+//  Fogo
 //
 //  Created by Michael Aronian Aronian on 1/20/24.
 //
@@ -22,7 +22,6 @@ class MatchupManager: ObservableObject {
     
     
     let healthManager = HealthDataManager()
-    var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
     var userExists:Bool = false
     let baseURL = Environment.apiBaseURL
     
@@ -40,6 +39,7 @@ class MatchupManager: ObservableObject {
                     // Handle the case where the URL is invalid
                     continue
                 }
+                var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
                 
                 var request = URLRequest(url: url)
                 request.httpMethod = "POST"
@@ -94,6 +94,7 @@ class MatchupManager: ObservableObject {
             completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
             return
         }
+        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
     
         let parameters = ["matchup": ["user1": activeUser]]
         var request = URLRequest(url: url)
@@ -136,7 +137,7 @@ class MatchupManager: ObservableObject {
         guard let url = URL(string: "\(baseURL)/matchups/\(id)") else {
             return
         }
-
+        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -177,7 +178,7 @@ class MatchupManager: ObservableObject {
         guard let url = URL(string: "\(baseURL)/matchups/\(id)") else {
             return
         }
-    
+        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
     
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -204,6 +205,7 @@ class MatchupManager: ObservableObject {
         guard let url = URL(string: "\(baseURL)/leagues/\(id)/matchups") else {
             return
         }
+        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -238,7 +240,7 @@ class MatchupManager: ObservableObject {
                         
                         var request = URLRequest(url: url)
                         request.httpMethod = "POST"
-                        request.addValue("\(self.authToken)", forHTTPHeaderField: "Authorization")
+                        request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
                         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                         
                         let parameters: [String: Any] = [
@@ -292,6 +294,7 @@ class MatchupManager: ObservableObject {
             guard let url = URL(string: "\(baseURL)/leagues/\(id)/matchups") else {
                 return
             }
+            var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -338,7 +341,7 @@ class MatchupManager: ObservableObject {
             return
         }
     
-    
+        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -368,7 +371,7 @@ class MatchupManager: ObservableObject {
         guard let url = URL(string: "\(baseURL)/users/check_user") else {
             return
         }
-        
+        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

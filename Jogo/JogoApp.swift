@@ -1,6 +1,6 @@
 //
-//  JogoApp.swift
-//  Jogo
+//  FogoApp.swift
+//  Fogo
 //
 //  Created by Michael Aronian Aronian on 1/20/24.
 //
@@ -9,13 +9,13 @@ import SwiftUI
 import BackgroundTasks
 
 @main
-struct JogoApp: App {
+struct FogoApp: App {
     @State var splash:Bool = true
     @ObservedObject var authViewModel = AuthenticationViewModel()
     @StateObject var matchupManager = MatchupManager()
     @StateObject var leagueManager = LeagueManager()
     @State private var splashScreenOffsetY: CGFloat = 0
-    let backgroundTaskIdentifier = "com.jensunset.Jogo.refreshData"
+    let backgroundTaskIdentifier = "com.jensunset.Fogo.refreshData"
     
     
     init() {
@@ -44,6 +44,7 @@ struct JogoApp: App {
                         splash = false // Set splash to false after sliding animation
                     }
                 }
+                authViewModel.current_user()
                 if authViewModel.isLoggedIn {
                     leagueManager.getLeagues()
                 }

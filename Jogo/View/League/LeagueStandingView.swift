@@ -1,6 +1,6 @@
 //
 //  LeagueStandingView.swift
-//  Jogo
+//  Fogo
 //
 //  Created by Michael Aronian Aronian on 2/11/24.
 //

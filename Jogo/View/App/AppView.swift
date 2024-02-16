@@ -1,6 +1,6 @@
 //
 //  AppView.swift
-//  Jogo
+//  Fogo
 //
 //  Created by Michael Aronian Aronian on 1/20/24.
 //
@@ -25,7 +25,7 @@ struct AppView: View {
             VStack {
                     VStack{
                         if(leagueManager.leagues.count == 0 && (showCode == false && showCreateLeague == false)){
-                            Text("Welcome to Jogo")
+                            Text("Welcome to Fogo")
                                 .foregroundColor(ColorTheme.white)
                                 .font(.title)
                             VStack{

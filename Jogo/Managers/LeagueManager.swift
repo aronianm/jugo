@@ -1,6 +1,6 @@
 //
 //  LeagueManager.swift
-//  Jogo
+//  Fogo
 //
 //  Created by Michael Aronian Aronian on 2/11/24.
 //
@@ -169,41 +169,50 @@ class LeagueManager: ObservableObject {
         }
     }
     
-    func joinLeague(code:String, completion: @escaping (Result<Void, Error>) -> Void) {
-        let userId = UserDefaults.standard.string(forKey: "userId")
-        if let authToken = UserDefaults.standard.string(forKey: "AuthToken") {
-            let parameters: [String: Any] = ["league":[
-                "code": code
-            ]]
-            
-            guard let url = URL(string: "\(baseURL)/leagues/join") else {
-                completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
-                return
-            }
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
-            
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: [])
-                request.httpBody = jsonData
-            } catch {
+    func joinLeague(code: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let authToken = UserDefaults.standard.string(forKey: "AuthToken") else {
+            completion(.failure(NSError(domain: "Auth token not found", code: 0, userInfo: nil)))
+            return
+        }
+
+        let parameters: [String: Any] = ["league": ["code": code]]
+
+        guard let url = URL(string: "\(baseURL)/leagues/join") else {
+            completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
+
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: parameters, options: [])
+            request.httpBody = jsonData
+        } catch {
+            completion(.failure(error))
+            return
+        }
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
                 completion(.failure(error))
                 return
             }
-            
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                
-                self.getLeagues()
-                completion(.success(()))
-            }.resume()
-        }
+
+            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+                completion(.failure(NSError(domain: "Invalid response", code: 0, userInfo: nil)))
+                return
+            }
+
+            // Assuming success if HTTP status code is in the success range
+            // You can handle other cases (e.g., error response from server) accordingly
+
+            // Now, you would send push notifications to users in the league from your backend server
+
+            completion(.success(()))
+        }.resume()
     }
     
 }

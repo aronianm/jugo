@@ -4,7 +4,7 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>com.jensunset.Jogo.refreshData</string>
+		<string>com.jensunset.Fogo.refreshData</string>
 	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>

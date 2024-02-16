@@ -1,6 +1,6 @@
 //
 //  SplashScreen.swift
-//  Jogo
+//  Fogo
 //
 //  Created by Michael Aronian Aronian on 2/13/24.
 //
@@ -16,7 +16,7 @@ struct SplashScreen: View {
             VStack {
                 Spacer()
                 HStack{
-                    Text("Jogo")
+                    Text("Fogo")
                         .font(Font.custom("PixelFont", size: 90))
                         .foregroundColor(ColorTheme.background)
                 }

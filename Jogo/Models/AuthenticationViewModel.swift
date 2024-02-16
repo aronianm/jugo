@@ -1,6 +1,6 @@
 //
 //  AuthenticationViewModel.swift
-//  Jogo
+//  Fogo
 //
 //  Created by Michael Aronian Aronian on 1/20/24.
 //
@@ -22,10 +22,6 @@ class AuthenticationViewModel: ObservableObject {
         if let storedToken = UserDefaults.standard.string(forKey: "AuthToken"), !storedToken.isEmpty {
             self.isLoggedIn = true
         }
-    }
-
-    private func saveAuthTokenToUserDefaults() {
-        UserDefaults.standard.synchronize()
     }
 
     func handleLoginSuccess() {

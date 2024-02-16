@@ -1,6 +1,6 @@
 //
 //  LoginView.swift
-//  Jogo
+//  Fogo
 //
 //  Created by Michael Aronian Aronian on 1/20/24.
 //
@@ -65,6 +65,7 @@ struct LoginView: View {
                     Text(errorMessage)
                         .foregroundColor(.red)
                         .padding()
+                    Text("\(Environment.apiBaseURL)")
                 }
                 
                 HStack{

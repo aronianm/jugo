@@ -18,7 +18,7 @@ struct SplashScreen: View {
                 HStack{
                     Text("Fogo")
                         .font(Font.custom("PixelFont", size: 90))
-                        .foregroundColor(ColorTheme.background)
+                        .foregroundColor(ColorTheme.background).bold()
                 }
                 Spacer()
                 LogoView()

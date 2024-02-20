@@ -11,6 +11,9 @@ import Foundation
 
 enum Environment {
     static var apiBaseURL: String {
-        return ProcessInfo.processInfo.environment["API_BASE_URL"]!
+        guard let path = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") else{
+            return ""
+        }
+        return "\(path)"
     }
 }

@@ -43,7 +43,7 @@ struct LoginView: View {
                     .cornerRadius(20)
                     .frame(width: 100, height: 100)
                     .padding()
-                
+                Text(Environment.apiBaseURL)
                 TextField("Phone Number", text: $phoneNumber).onChange(of: phoneNumber, perform: { _ in
                     // Format the phone number as the user types
                     formatPhoneNumber()

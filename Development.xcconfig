@@ -1,0 +1,10 @@
+//
+//  Development.xcconfig
+//  Jogo
+//
+//  Created by Michael Aronian Aronian on 2/19/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+API_BASE_URL="http://michaels-macbook-air.local:3001"

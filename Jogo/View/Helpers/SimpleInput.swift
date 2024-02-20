@@ -19,7 +19,6 @@ struct SimpleInput: View {
         }.cornerRadius(21.0)
             .background(Color.gray.opacity(0.1))
             .cornerRadius(8)
-            .autocapitalization(.none)
             .padding(.horizontal, 20)
             .foregroundColor(.black)
     }

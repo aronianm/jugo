@@ -12,6 +12,7 @@ class AuthenticationViewModel: ObservableObject {
     @Published var userId:Int = 0
     @Published var accessDenied:Bool = false
     @Published var user: User?
+    @Published var gameCenterManager:GameCenterManager = GameCenterManager()
     let baseURL = Environment.apiBaseURL
 
     init() {
@@ -21,6 +22,9 @@ class AuthenticationViewModel: ObservableObject {
     private func restoreAuthTokenFromUserDefaults() {
         if let storedToken = UserDefaults.standard.string(forKey: "AuthToken"), !storedToken.isEmpty {
             self.isLoggedIn = true
+        }else{
+            self.isLoggedIn = false
+            gameCenterManager.isAuthenticated = false
         }
     }
 
@@ -29,13 +33,13 @@ class AuthenticationViewModel: ObservableObject {
         self.current_user()
     }
 
-    func signup(phone_number: String, fname: String, lname: String, password: String) {
+    func signup(username: String, fname: String, lname: String, password: String) {
         guard let url = URL(string: "\(baseURL)/signup") else {
             print("Invalid URL")
             return
         }
 
-        let parameters = ["user": ["phone_number": phone_number, "fname": fname, "lname": lname, "password": password]]
+        let parameters = ["user": ["username": username, "fname": fname, "lname": lname, "password": password]]
 
         performRequest(url: url, method: "POST", parameters: parameters) { result in
             switch result {

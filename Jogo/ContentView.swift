@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var authViewModel:AuthenticationViewModel
+    @ObservedObject var gameCenterManager:GameCenterManager
     @StateObject var matchupManager:MatchupManager
     @StateObject var leagueManager:LeagueManager
     var body: some View {
         Group {
-            if(authViewModel.isLoggedIn){
-                AppView(authViewModel: authViewModel, matchupManager:matchupManager, leagueManager:leagueManager)
-            }else{
-                LoginView(authViewModel: authViewModel)
+            if(gameCenterManager.isAuthenticated){
+                AppView(gameCenterManager: gameCenterManager, matchupManager:matchupManager, leagueManager:leagueManager)
             }
             
         }.background(ColorTheme.background)
@@ -24,5 +22,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(authViewModel: AuthenticationViewModel(), matchupManager: MatchupManager(), leagueManager:LeagueManager())
+    ContentView(gameCenterManager: GameCenterManager(), matchupManager: MatchupManager(), leagueManager:LeagueManager())
 }

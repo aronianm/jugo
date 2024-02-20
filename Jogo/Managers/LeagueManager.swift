@@ -22,7 +22,7 @@ class LeagueManager: ObservableObject {
             return
         }
         
-        if let authToken = UserDefaults.standard.string(forKey: "AuthToken") {
+        if let authToken = UserDefaults.standard.string(forKey: "jwt") {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
@@ -52,7 +52,7 @@ class LeagueManager: ObservableObject {
     }
     func findLeague(completion: @escaping (Result<League, Error>) -> Void) {
         let userId = UserDefaults.standard.string(forKey: "userId")
-        if let authToken = UserDefaults.standard.string(forKey: "AuthToken") {
+        if let authToken = UserDefaults.standard.string(forKey: "jwt") {
             guard let url = URL(string: "\(baseURL)/leagues/\(userId)/users") else {
                 completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
                 return
@@ -90,7 +90,7 @@ class LeagueManager: ObservableObject {
     func deleteLeague(id: Int) {
         
         // Make delete request to server
-        if let authToken = UserDefaults.standard.string(forKey: "AuthToken") {
+        if let authToken = UserDefaults.standard.string(forKey: "jwt") {
             let url = URL(string: "\(baseURL)/leagues/\(id)/leave_league")!
             var request = URLRequest(url: url)
             request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
@@ -133,7 +133,7 @@ class LeagueManager: ObservableObject {
             "numberOfWeeks": numberOfWeeks,
             "numberOfUsersNeeded": numberOfUsers
         ]]
-        if let authToken = UserDefaults.standard.string(forKey: "AuthToken") {
+        if let authToken = UserDefaults.standard.string(forKey: "jwt") {
             guard let url = URL(string: "\(baseURL)/leagues/") else {
                 completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
                 return
@@ -166,11 +166,13 @@ class LeagueManager: ObservableObject {
                 self.getLeagues()
                 completion(.success(()))
             }.resume()
+        }else{
+            print("No where to go")
         }
     }
     
     func joinLeague(code: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let authToken = UserDefaults.standard.string(forKey: "AuthToken") else {
+        guard let authToken = UserDefaults.standard.string(forKey: "jwt") else {
             completion(.failure(NSError(domain: "Auth token not found", code: 0, userInfo: nil)))
             return
         }

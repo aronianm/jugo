@@ -64,34 +64,20 @@ struct LoginView: View {
                     Text(errorMessage)
                         .foregroundColor(.red)
                         .padding()
-                    Text("\(Environment.apiBaseURL)")
                 }
-                
-                HStack{
-                    Button("Login") {
-                        // Attempt login and handle error
-                        authViewModel.login(phone_number: phoneNumber, password: password) { error in
-                            if let error = error {
-                                errorMessage = error.localizedDescription
-                            } else {
-                                // Clear error message on successful login
-                                errorMessage = ""
+                VStack{
+                    HStack{
+                        Button("Login") {
+                            // Attempt login and handle error
+                            authViewModel.login(phone_number: phoneNumber, password: password) { error in
+                                if let error = error {
+                                    errorMessage = error.localizedDescription
+                                } else {
+                                    // Clear error message on successful login
+                                    errorMessage = ""
+                                }
                             }
-                        }
-                    }.font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        LinearGradient(gradient: Gradient(colors: [ColorTheme.secondary, ColorTheme.primary]), startPoint: .leading, endPoint: .trailing)
-                    )
-                    .cornerRadius(10)
-                    .padding(.horizontal, 40)
-                    .padding(.vertical, 15)
-                    
-                    NavigationLink(destination: SignUpFormView(authViewModel: authViewModel, shouldNavigateBack: $shouldNavigateBack), isActive: $shouldNavigateBack) {
-                        Text("Sign Up")
-                            .font(.headline)
+                        }.font(.headline)
                             .foregroundColor(.white)
                             .padding()
                             .frame(maxWidth: .infinity)
@@ -101,6 +87,20 @@ struct LoginView: View {
                             .cornerRadius(10)
                             .padding(.horizontal, 40)
                             .padding(.vertical, 15)
+                        
+                        NavigationLink(destination: SignUpFormView(authViewModel: authViewModel, shouldNavigateBack: $shouldNavigateBack), isActive: $shouldNavigateBack) {
+                            Text("Sign Up")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(
+                                    LinearGradient(gradient: Gradient(colors: [ColorTheme.secondary, ColorTheme.primary]), startPoint: .leading, endPoint: .trailing)
+                                )
+                                .cornerRadius(10)
+                                .padding(.horizontal, 40)
+                                .padding(.vertical, 15)
+                        }
                     }
                 }
                 Spacer()
@@ -112,6 +112,6 @@ struct LoginView: View {
 
 
 
-#Preview {
-    LoginView(authViewModel: AuthenticationViewModel())
-}
+//#Preview {
+//    LoginView(authViewModel: AuthenticationViewModel())
+//}

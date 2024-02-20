@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AppView: View {
-    @StateObject var authViewModel: AuthenticationViewModel
+    @StateObject var gameCenterManager: GameCenterManager
     @StateObject var matchupManager:MatchupManager
     @StateObject var leagueManager:LeagueManager
     
@@ -174,7 +174,7 @@ struct AppView: View {
                             .foregroundColor(.white),
                         action: {
                             // Handle logout action
-                            authViewModel.logout()
+                            gameCenterManager.isAuthenticated = false
                         }
                     ),
                     secondaryButton: .cancel(
@@ -200,7 +200,7 @@ struct ContentView_Previews: PreviewProvider {
         mockAuthModel.login(phone_number: "978-726-5882", password: "looser67") { error in
         }
 
-        return AppView(authViewModel: mockAuthModel, matchupManager: MatchupManager(), leagueManager:LeagueManager())
+        return AppView(gameCenterManager: GameCenterManager(), matchupManager: MatchupManager(), leagueManager:LeagueManager())
         
     }
 }

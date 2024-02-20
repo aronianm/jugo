@@ -39,7 +39,7 @@ class MatchupManager: ObservableObject {
                     // Handle the case where the URL is invalid
                     continue
                 }
-                var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
+                var authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
                 
                 var request = URLRequest(url: url)
                 request.httpMethod = "POST"
@@ -94,7 +94,7 @@ class MatchupManager: ObservableObject {
             completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
             return
         }
-        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
+        var authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
     
         let parameters = ["matchup": ["user1": activeUser]]
         var request = URLRequest(url: url)
@@ -137,7 +137,7 @@ class MatchupManager: ObservableObject {
         guard let url = URL(string: "\(baseURL)/matchups/\(id)") else {
             return
         }
-        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
+        var authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -178,7 +178,7 @@ class MatchupManager: ObservableObject {
         guard let url = URL(string: "\(baseURL)/matchups/\(id)") else {
             return
         }
-        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
+        var authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
     
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -205,7 +205,7 @@ class MatchupManager: ObservableObject {
         guard let url = URL(string: "\(baseURL)/leagues/\(id)/matchups") else {
             return
         }
-        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
+        var authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -294,7 +294,7 @@ class MatchupManager: ObservableObject {
             guard let url = URL(string: "\(baseURL)/leagues/\(id)/matchups") else {
                 return
             }
-            var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
+            var authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -341,7 +341,7 @@ class MatchupManager: ObservableObject {
             return
         }
     
-        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
+        var authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -371,7 +371,7 @@ class MatchupManager: ObservableObject {
         guard let url = URL(string: "\(baseURL)/users/check_user") else {
             return
         }
-        var authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
+        var authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

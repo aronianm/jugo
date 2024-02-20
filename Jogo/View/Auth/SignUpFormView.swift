@@ -38,7 +38,7 @@ struct SignUpFormView: View {
         // Return the formatted phone number
         return phoneNumber
     }
-    
+    let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? "Unknown"
     var body: some View {
         NavigationView {
             VStack{
@@ -62,9 +62,20 @@ struct SignUpFormView: View {
                     SimpleInput(text: $password, title: "Password").padding()
                 }
                 Spacer()
+                HStack{
+                    VStack{
+                        Text("Sign Up Wth")
+                        HStack{
+                            
+                        }
+                    }
+                }
                 Button(action: {
                     // Handle registration action
-                    authViewModel.signup(phone_number: phoneNumber, fname: fname, lname: lname, password: password)
+                    authViewModel.signup(username: deviceID,
+                                         fname: fname,
+                                         lname: lname,
+                                         password: password)
                     // Dismiss the view on successful sign-up
                     shouldNavigateBack = false
                     

@@ -49,12 +49,12 @@ struct Matchup: Codable, Identifiable {
     }
     func opponentTitle() -> String {
         let u = userOne
-        return "\(u.fname) \(u.lname)"
+        return "\(u.username)"
     }
     
     func userTitle() -> String {
         let u = userTwo
-        return "\(u.fname) \(u.lname)"
+        return "\(u.username)"
         
     }
 }

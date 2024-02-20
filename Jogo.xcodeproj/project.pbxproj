@@ -54,8 +54,9 @@
 		6158ACDE2B7C65F5005D6462 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		6158ACE22B7E6253005D6462 /* LeagueRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueRowView.swift; sourceTree = "<group>"; };
 		6158ACEA2B8421FE005D6462 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
-		6158ACED2B84226C005D6462 /* QA.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = QA.xcconfig; sourceTree = "<group>"; };
+		6158ACED2B84226C005D6462 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		6158ACEE2B84227F005D6462 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		6158ACEF2B843DB1005D6462 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		615D33902B5CCDFD00CAF7E5 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		615D339B2B5CD3CD00CAF7E5 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		615D33A32B5F39D200CAF7E5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -154,7 +155,8 @@
 		61B5B5BB2B5C6DCD00B05615 = {
 			isa = PBXGroup;
 			children = (
-				6158ACED2B84226C005D6462 /* QA.xcconfig */,
+				6158ACEF2B843DB1005D6462 /* AppConfiguration.swift */,
+				6158ACED2B84226C005D6462 /* Debug.xcconfig */,
 				6158ACEA2B8421FE005D6462 /* Development.xcconfig */,
 				6158ACEE2B84227F005D6462 /* Release.xcconfig */,
 				61B5B5C62B5C6DCD00B05615 /* Jogo */,

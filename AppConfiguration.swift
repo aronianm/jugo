@@ -1,12 +1,9 @@
 //
-//  Environment.swift
-//  Fogo
+//  AppConfiguration.swift
+//  Jogo
 //
-//  Created by Michael Aronian Aronian on 1/20/24.
+//  Created by Michael Aronian Aronian on 2/19/24.
 //
-
-import Foundation
-
 
 enum AppConfiguration {
   case Debug
@@ -36,17 +33,4 @@ struct Config {
       return .AppStore
     }
   }
-}
-
-enum Environment {
-    static var configuration = Config.self
-    static var apiBaseURL: String {
-        if (configuration.appConfiguration == .Debug) {
-            return "http://michaels-macbook-air.local:3001"
-        } else if (configuration.appConfiguration == .TestFlight) {
-            return "http://qa.fogo-fitness.com"
-        } else {
-            return "http://production.fogo-fitness.com"
-        }
-    }
 }

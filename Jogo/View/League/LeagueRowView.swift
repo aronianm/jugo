@@ -9,9 +9,8 @@ import SwiftUI
 
 struct LeagueRowView: View {
     var league: League
-    @ObservedObject var leagueManager: LeagueManager
     var body: some View {
-        NavigationLink(destination: LeagueView(league: league, leagueManager: leagueManager)) {
+        NavigationLink(destination: LeagueView(league: league)) {
             VStack(alignment: .center) {
                 Text(league.leagueName)
                     .font(.headline)

@@ -17,7 +17,7 @@ struct LeagueListView: View {
                 ForEach(leagueManager.leagues) { league in
                     HStack {
                         Spacer()
-                        LeagueRowView(league: league, leagueManager: leagueManager)
+                        LeagueRowView(league: league)
                             .padding(.vertical, 8)
                         Spacer()
                     }

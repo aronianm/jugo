@@ -12,7 +12,6 @@ import BackgroundTasks
 struct FogoApp: App {
     @State var splash:Bool = true
     @ObservedObject var gameCenterManager = GameCenterManager()
-    @StateObject var matchupManager = MatchupManager()
     @StateObject var leagueManager = LeagueManager()
     @State private var splashScreenOffsetY: CGFloat = 0
     let backgroundTaskIdentifier = "com.jensunset.Fogo.refreshData"
@@ -31,7 +30,7 @@ struct FogoApp: App {
                         .offset(y: splashScreenOffsetY)
                         .animation(.easeInOut(duration: 0.5)) // Animation for sliding up
                 } else {
-                    ContentView(gameCenterManager: gameCenterManager, matchupManager: matchupManager, leagueManager: leagueManager)
+                    ContentView(gameCenterManager: gameCenterManager, leagueManager: leagueManager)
                 }
             }
             .onAppear {
@@ -79,12 +78,12 @@ struct FogoApp: App {
         
     func refreshData(completion: @escaping () -> Void) {
         print("Refreshing")
-            if gameCenterManager.isAuthenticated {
-                leagueManager.getLeagues()
-                for league in leagueManager.leagues {
-                   matchupManager.refreshMatchups(id: league.id)
-                }
-                completion()
-            }
+//            if gameCenterManager.isAuthenticated {
+//                leagueManager.getLeagues()
+//                for league in leagueManager.leagues {
+//                   matchupManager.refreshMatchups(id: league.id)
+//                }
+//                completion()
+//            }
        }
 }

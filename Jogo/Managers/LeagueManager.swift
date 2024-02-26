@@ -12,7 +12,6 @@ class LeagueManager: ObservableObject {
     
     @Published var league:League?
     @Published var leagues:[League] = []
-    @Published var matchupManager:MatchupManager = MatchupManager()
     
     let baseURL = Environment.apiBaseURL
     
@@ -29,10 +28,11 @@ class LeagueManager: ObservableObject {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             
             URLSession.shared.dataTask(with: request) { data, response, error in
+                print("Running")
                 
-                if let error = error {
-                    return
-                }
+//                if let error = error {
+//                    return
+//                }
                 
                 guard let data = data else {
                     return
@@ -41,9 +41,8 @@ class LeagueManager: ObservableObject {
                 do {
                     let decoder = JSONDecoder()
                     let decodedMatchup = try decoder.decode([League].self, from: data)
-                    DispatchQueue.main.async {
-                        self.leagues = decodedMatchup
-                    }
+                    self.leagues = decodedMatchup
+                    
                 } catch {
                     print("Error \(error)")
                 }
@@ -51,7 +50,10 @@ class LeagueManager: ObservableObject {
         }
     }
     func findLeague(completion: @escaping (Result<League, Error>) -> Void) {
-        let userId = UserDefaults.standard.string(forKey: "userId")
+        guard let userId = UserDefaults.standard.string(forKey: "userId") else {
+            return
+        }
+                
         if let authToken = UserDefaults.standard.string(forKey: "jwt") {
             guard let url = URL(string: "\(baseURL)/leagues/\(userId)/users") else {
                 completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))

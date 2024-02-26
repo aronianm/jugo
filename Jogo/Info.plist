@@ -8,6 +8,8 @@
 	<array>
 		<string>com.jensunset.Fogo.refreshData</string>
 	</array>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

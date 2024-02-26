@@ -54,10 +54,10 @@ struct MatchupsView: View {
                
             }
         }.padding(5).border(Color.black, width: 1).refreshable {
-            await matchupManager.findLeagueMatchup(id: id, index: $currentMatchupIndex)
+            matchupManager.findLeagueMatchup()
           }
         .task {
-            await matchupManager.findLeagueMatchup(id: id, index: $currentMatchupIndex)
+            matchupManager.findLeagueMatchup()
             loading = false
 
         }

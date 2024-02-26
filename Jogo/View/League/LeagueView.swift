@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct LeagueView: View {
-    var league:League
-    var leagueManager:LeagueManager
-    @State var matchup:Matchup?
+    var league: League
+    @State private var matchup: Matchup?
+    @StateObject var matchupManager: MatchupManager
     @State private var showLeagueCode = false
     @State private var copiedCode = false
+    
+    init(league: League) {
+        self.league = league
+        self._matchupManager = StateObject(wrappedValue: MatchupManager(leagueId: league.id))
+    }
     
     var body: some View {
         VStack {
@@ -46,7 +51,7 @@ struct LeagueView: View {
             }
             VStack{
                 LeagueStandingsView(userLeagues: league.userLeagues)
-                MatchupsView(id: league.id, matchupManager: leagueManager.matchupManager)
+                MatchupsView(id: league.id, matchupManager: matchupManager)
                 Spacer()
             }
         }

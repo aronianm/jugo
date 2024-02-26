@@ -9,8 +9,8 @@ import SwiftUI
 
 struct AppView: View {
     @StateObject var gameCenterManager: GameCenterManager
-    @StateObject var matchupManager:MatchupManager
-    @StateObject var leagueManager:LeagueManager
+
+    @ObservedObject var leagueManager: LeagueManager = LeagueManager()
     
     @State private var selectedOption = 0
     @State private var showDropdown = false
@@ -70,22 +70,22 @@ struct AppView: View {
                                 .padding()
                                 Spacer()
                             }
+                        }else{
+                            if(showCode){
+                                CodeLeagueView(leagueManager: leagueManager, showCode: $showCode)
+                            }else if(showCreateLeague){
+                                CreateLeagueView(leagueManager: leagueManager, showCreateLeague: $showCreateLeague)
+                            }else{
+                                LeagueListView(leagueManager: leagueManager).refreshable {
+                                    leagueManager.getLeagues()
+                                }
+                            }
                         }
                     }.onAppear {
                         leagueManager.getLeagues()
                     }
                     Spacer()
                     
-                    
-                    if(showCode){
-                        CodeLeagueView(leagueManager: leagueManager, showCode: $showCode)
-                    }else if(showCreateLeague){
-                        CreateLeagueView(leagueManager: leagueManager, showCreateLeague: $showCreateLeague)
-                    }else{
-                        LeagueListView(leagueManager: leagueManager).refreshable {
-                            leagueManager.getLeagues()
-                        }
-                    }
                 Spacer()
             }
             .toolbar {
@@ -200,7 +200,7 @@ struct ContentView_Previews: PreviewProvider {
         mockAuthModel.login(phone_number: "978-726-5882", password: "looser67") { error in
         }
 
-        return AppView(gameCenterManager: GameCenterManager(), matchupManager: MatchupManager(), leagueManager:LeagueManager())
+        return AppView(gameCenterManager: GameCenterManager(), leagueManager:LeagueManager())
         
     }
 }

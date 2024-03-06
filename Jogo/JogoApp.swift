@@ -26,9 +26,10 @@ struct FogoApp: App {
         WindowGroup {
             VStack {
                 if splash {
-                    SplashScreen()
-                        .offset(y: splashScreenOffsetY)
-                        .animation(.easeInOut(duration: 0.5)) // Animation for sliding up
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        SplashScreen()
+                            .offset(y: splashScreenOffsetY)
+                    }
                 } else {
                     ContentView(gameCenterManager: gameCenterManager, leagueManager: leagueManager)
                 }

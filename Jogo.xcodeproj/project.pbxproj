@@ -35,9 +35,7 @@
 		61B5B5CA2B5C6DCD00B05615 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5C92B5C6DCD00B05615 /* ContentView.swift */; };
 		61B5B5CC2B5C6DCE00B05615 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61B5B5CB2B5C6DCE00B05615 /* Assets.xcassets */; };
 		61B5B5D02B5C6DCE00B05615 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61B5B5CF2B5C6DCE00B05615 /* Preview Assets.xcassets */; };
-		61B5B5D92B5C6E1200B05615 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5D82B5C6E1200B05615 /* LoginView.swift */; };
 		61B5B5DB2B5C6E5B00B05615 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5DA2B5C6E5B00B05615 /* AuthenticationViewModel.swift */; };
-		61B5B5DD2B5C72FD00B05615 /* SignUpFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5DC2B5C72FD00B05615 /* SignUpFormView.swift */; };
 		61B5B5E02B5C73B800B05615 /* SimpleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5B5DF2B5C73B800B05615 /* SimpleInput.swift */; };
 		61CDB67C2B5CA90100CD347B /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDB67B2B5CA90100CD347B /* AppView.swift */; };
 		61CDB67F2B5CAA3B00CD347B /* HealthDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CDB67E2B5CAA3B00CD347B /* HealthDataManager.swift */; };
@@ -83,9 +81,7 @@
 		61B5B5CB2B5C6DCE00B05615 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61B5B5CD2B5C6DCE00B05615 /* Jogo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Jogo.entitlements; sourceTree = "<group>"; };
 		61B5B5CF2B5C6DCE00B05615 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		61B5B5D82B5C6E1200B05615 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		61B5B5DA2B5C6E5B00B05615 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
-		61B5B5DC2B5C72FD00B05615 /* SignUpFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFormView.swift; sourceTree = "<group>"; };
 		61B5B5DF2B5C73B800B05615 /* SimpleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleInput.swift; sourceTree = "<group>"; };
 		61CDB67B2B5CA90100CD347B /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		61CDB67E2B5CAA3B00CD347B /* HealthDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataManager.swift; sourceTree = "<group>"; };
@@ -210,18 +206,8 @@
 				615D338C2B5CCDA400CAF7E5 /* Matchups */,
 				61CDB67A2B5CA8AD00CD347B /* App */,
 				61B5B5DE2B5C73AD00B05615 /* Helpers */,
-				61B5B5D72B5C6DFD00B05615 /* Auth */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		61B5B5D72B5C6DFD00B05615 /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				61B5B5D82B5C6E1200B05615 /* LoginView.swift */,
-				61B5B5DC2B5C72FD00B05615 /* SignUpFormView.swift */,
-			);
-			path = Auth;
 			sourceTree = "<group>";
 		};
 		61B5B5DE2B5C73AD00B05615 /* Helpers */ = {
@@ -335,7 +321,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6158ACDD2B7C5D5D005D6462 /* Safe+Array.swift in Sources */,
-				61B5B5DD2B5C72FD00B05615 /* SignUpFormView.swift in Sources */,
 				61CDB68A2B5CB28800CD347B /* CircularProgressView.swift in Sources */,
 				61CDB68E2B5CBAE300CD347B /* MatchupManager.swift in Sources */,
 				615D33AF2B5F5FA800CAF7E5 /* Matchup.swift in Sources */,
@@ -353,7 +338,6 @@
 				615D33A42B5F39D200CAF7E5 /* User.swift in Sources */,
 				615D33AB2B5F4F7400CAF7E5 /* Text+TitleStyle.swift in Sources */,
 				61831F6F2B78F735001139DE /* LeagueManager.swift in Sources */,
-				61B5B5D92B5C6E1200B05615 /* LoginView.swift in Sources */,
 				61CDB67F2B5CAA3B00CD347B /* HealthDataManager.swift in Sources */,
 				61831F762B790C56001139DE /* CreateLeagueView.swift in Sources */,
 				6158ACDF2B7C65F5005D6462 /* SplashScreen.swift in Sources */,

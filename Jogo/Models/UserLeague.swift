@@ -12,4 +12,3 @@ struct UserLeague:  Codable, Identifiable {
     var wins:Int
     var losses:Int
 }
-

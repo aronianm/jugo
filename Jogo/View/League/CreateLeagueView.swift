@@ -37,7 +37,7 @@ struct CreateLeagueView: View {
                     TextField("Number of Weeks", text: $numberOfWeeks)
                         .keyboardType(.numberPad)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .onChange(of: numberOfWeeks) { newValue in
+                        .onChange(of: numberOfWeeks) { oldValue, newValue in
                             if let number = Int(newValue), !(1...8).contains(number) {
                                 // If the entered value is not within the range 1...8,
                                 // update the value to be within that range

@@ -15,3 +15,7 @@ struct League:  Codable, Identifiable {
     var numberOfUsersNeeded:Int?
     var userLeagues:[UserLeague]
 }
+
+
+{
+

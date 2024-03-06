@@ -43,14 +43,14 @@ class MatchupManager: ObservableObject {
 
         let sum = activeEnergy + standHours + exerciseMinutes
 
-        for (i, matchup) in self.matchups.enumerated() {
+        for (_, matchup) in self.matchups.enumerated() {
             if(matchup.isActive){
                 index.wrappedValue = matchup.week
-                guard let url = URL(string: "\(baseURL)/leagues/\(self.leagueId)/matchups/\(matchup.id)/update_scores") else {
+                guard let url = URL(string: "\(baseURL)/leagues/\(self.leagueId!)/matchups/\(matchup.id)/update_scores") else {
                     // Handle the case where the URL is invalid
                     continue
                 }
-                var authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
+                let authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
                 
                 var request = URLRequest(url: url)
                 request.httpMethod = "POST"

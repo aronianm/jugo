@@ -22,17 +22,17 @@ class GameCenterManager: NSObject, ObservableObject, GKGameCenterControllerDeleg
     func authenticateLocalPlayer() {
         GKLocalPlayer.local.authenticateHandler = { viewController, error in
                 let localPlayer = GKLocalPlayer.local
-                if let viewController = viewController {
-                    UIApplication.shared.windows.first?.rootViewController?.present(viewController, animated: true, completion: nil)
+                if let viewController = viewController,
+                   let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let rootViewController = windowScene.windows.first?.rootViewController {
+                    rootViewController.present(viewController, animated: true, completion: nil)
                 } else if localPlayer.isAuthenticated  {
                     if localPlayer.scopedIDsArePersistent() {
                         let displayName = localPlayer.displayName
-                        let gamePlayerId = player.teamPlayerID
+
                         // Create a dictionary with user data
                         let userData: [String: Any] = [
                             "displayName": displayName,
-                            "game_center_id": gamePlayerId,
-                            
                         ]
                         
                         
@@ -64,14 +64,18 @@ class GameCenterManager: NSObject, ObservableObject, GKGameCenterControllerDeleg
                                     // Success response, status code is not in the 400 range
                                     self.isAuthenticated = true
                                     if let data = data {
-                                        if let jwt = String(data: data, encoding: .utf8) {
-                                            // Store the JWT key in UserDefaults
-                                            UserDefaults.standard.set(jwt, forKey: "jwt")
+                                        do {
+                                            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any], let jwt = json["jwt"] as? String {
+                                                // Store the JWT key in UserDefaults
+                                                UserDefaults.standard.set(jwt, forKey: "jwt")
+                                            }
+                                        } catch {
+                                            print("Error parsing JSON: \(error)")
+                                            self.isAuthenticated = false
                                         }
-                                    }else{
+                                    } else {
                                         self.isAuthenticated = false
                                     }
-                                    
                                 } else {
                                     // Error response, status code is in the 400 range
                                     self.isAuthenticated = false
@@ -92,8 +96,11 @@ class GameCenterManager: NSObject, ObservableObject, GKGameCenterControllerDeleg
     func showGameCenter() {
         let gcVC = GKGameCenterViewController()
         gcVC.gameCenterDelegate = self
-        gcVC.viewState = .default
-        UIApplication.shared.windows.first?.rootViewController?.present(gcVC, animated: true, completion: nil)
+
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let rootViewController = windowScene.windows.first?.rootViewController {
+            rootViewController.present(gcVC, animated: true, completion: nil)
+        }
     }
     
     func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {

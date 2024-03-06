@@ -20,7 +20,7 @@ class LeagueManager: ObservableObject {
         guard let url = URL(string: "\(baseURL)/leagues/") else {
             return
         }
-        
+
         if let authToken = UserDefaults.standard.string(forKey: "jwt") {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
@@ -160,10 +160,10 @@ class LeagueManager: ObservableObject {
                     return
                 }
                 
-                guard let data = data else {
-                    completion(.failure(NSError(domain: "No data received", code: 0, userInfo: nil)))
-                    return
-                }
+//                guard let data = data else {
+//                    completion(.failure(NSError(domain: "No data received", code: 0, userInfo: nil)))
+//                    return
+//                }
                 
                 self.getLeagues()
                 completion(.success(()))

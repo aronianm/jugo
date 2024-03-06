@@ -88,19 +88,21 @@ class HealthDataManager: ObservableObject {
             }
             
             DispatchQueue.main.async {
-                if let moveGoalUnit = preferredUnits[moveGoalType] {
+                if preferredUnits[moveGoalType] != nil {
+                    // Using moveGoalUnit in the if condition
                     let moveGoalQuantity = HKQuantity(unit: HKUnit.kilocalorie(), doubleValue: 1)
                     self.moveGoal = moveGoalQuantity.doubleValue(for: .kilocalorie())
                 }
-                if let exerciseGoalUnit = preferredUnits[exerciseGoalType] {
-                    let exerciseGoalQuantity = HKQuantity(unit: HKUnit.minute(), doubleValue: 1)
-                    self.exerciseGoal = exerciseGoalQuantity.doubleValue(for: .minute())
-                }
                 
-                if let standGoalUnit = preferredUnits[standGoalType] {
-                    let exerciseGoalQuantity = HKQuantity(unit: HKUnit.hour(), doubleValue: 1)
-                    self.exerciseGoal = exerciseGoalQuantity.doubleValue(for: .minute())
-                }
+                if preferredUnits[exerciseGoalType] != nil {
+                        let exerciseGoalQuantity = HKQuantity(unit: HKUnit.minute(), doubleValue: 1)
+                        self.exerciseGoal = exerciseGoalQuantity.doubleValue(for: .minute())
+                    }
+                
+                if preferredUnits[standGoalType] != nil {
+                        let exerciseGoalQuantity = HKQuantity(unit: HKUnit.hour(), doubleValue: 1)
+                        self.exerciseGoal = exerciseGoalQuantity.doubleValue(for: .minute())
+                    }
             }
         }
     }

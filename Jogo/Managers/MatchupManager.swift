@@ -31,10 +31,9 @@ class MatchupManager: ObservableObject {
 
     init(leagueId: Int) {
         self.leagueId = leagueId
-        self.cancellables = Set<AnyCancellable>()
-        // Assuming you have some asynchronous task that updates the `matchups` array
         findLeagueMatchup()
     }
+
     
     func updateAllScores(index:Binding<Int>) {
         let activeEnergy = healthManager.activeEnergy
@@ -158,11 +157,10 @@ class MatchupManager: ObservableObject {
                 return
             }
 
-            guard let data = data else {
+           if data == nil {
                 return
             }
 
-            
             print("Succesfully deletion")
             
         }.resume()
@@ -257,7 +255,7 @@ class MatchupManager: ObservableObject {
         }.resume()
     }
     func findLeagueMatchup() {
-        guard let url = URL(string: "\(baseURL)/leagues/\(self.leagueId!)/matchups") else {
+        guard let leagueId = self.leagueId, let url = URL(string: "\(baseURL)/leagues/\(leagueId)/matchups") else {
             return
         }
         let authToken: String = UserDefaults.standard.string(forKey: "jwt") ?? ""

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var gameCenterManager:GameCenterManager
-    @StateObject var leagueManager:LeagueManager
+    @ObservedObject var leagueManager:LeagueManager
     var body: some View {
         Group {
             if(gameCenterManager.isAuthenticated){

@@ -9,34 +9,29 @@ import SwiftUI
 
 struct LeagueView: View {
     var league: League
-    @State private var matchup: Matchup?
-    @StateObject var matchupManager: MatchupManager
     @State private var showLeagueCode = false
     @State private var copiedCode = false
-    
+    @ObservedObject var matchupManager: MatchupManager
+
     init(league: League) {
         self.league = league
-        self._matchupManager = StateObject(wrappedValue: MatchupManager(leagueId: league.id))
+        self._matchupManager = ObservedObject(wrappedValue: MatchupManager(leagueId: league.id))
     }
-    
+
     var body: some View {
         VStack {
             HStack {
-                if (league.userLeagues.count != league.numberOfUsersNeeded) {
-                    
+                if league.userLeagues.count != league.numberOfUsersNeeded {
                     Button("Show League Code") {
-                        showLeagueCode.toggle() // Toggle the state variable
+                        showLeagueCode.toggle()
                     }
                     .padding()
-                    
+
                     if showLeagueCode {
                         Text(league.leagueCode!)
                             .onTapGesture {
                                 UIPasteboard.general.string = league.leagueCode!
-                                copiedCode = true // Set copiedCode to true when the code is copied
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                    copiedCode = false // Reset copiedCode after 2 seconds
-                                }
+                                copiedCode = true
                             }
                             .padding()
                             .background(ColorTheme.background)
@@ -49,36 +44,19 @@ struct LeagueView: View {
                     }
                 }
             }
-            VStack{
+            VStack {
                 LeagueStandingsView(userLeagues: league.userLeagues)
                 MatchupsView(id: league.id, matchupManager: matchupManager)
                 Spacer()
             }
         }
+        .onAppear {
+            getCurrentLeagueMatchup()
+        }
     }
-    
+
     func getCurrentLeagueMatchup() {
-        let baseURL = Environment.apiBaseURL
-        let authToken:String =  UserDefaults.standard.string(forKey: "AuthToken") ?? ""
-      
-        let url = URL(string: "\(baseURL)/leagues/\(league.id)")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            // Check if data is available
-            guard let data = data else {
-                return
-            }
-            
-            do {
-                // Map the JSON data to Matchup struct
-                matchup = try JSONDecoder().decode(Matchup.self, from: data)
-            } catch {
-                
-            }
-        }.resume() // Start the data task
+        guard let leagueId = matchupManager.leagueId else { return }
+        matchupManager.refreshMatchups(id: leagueId)
     }
 }
-

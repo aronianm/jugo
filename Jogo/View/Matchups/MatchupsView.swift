@@ -44,7 +44,7 @@ struct MatchupsView: View {
                                             currentMatchupIndex -= 1
                                         }
                                     } else if value.translation.width < -100 { // Swipe left
-                                        if matchupManager.matchups.filter { $0.week == currentMatchupIndex + 1 }.isEmpty == false {
+                                        if !matchupManager.matchups.filter({ $0.week == currentMatchupIndex + 1 }).isEmpty {
                                             currentMatchupIndex += 1
                                         }
                                     }

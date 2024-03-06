@@ -16,6 +16,3 @@ struct League:  Codable, Identifiable {
     var userLeagues:[UserLeague]
 }
 
-
-{
-

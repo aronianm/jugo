@@ -24,7 +24,7 @@ struct SplashScreen: View {
                 LogoView()
                     .scaleEffect(isWiggling ? 1.2 : 1.0) // Scale up when wiggling
                     .rotationEffect(Angle(degrees: isWiggling ? 10 : 0)) // Rotate when wiggling
-                    .animation(Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) // Apply wiggling animation
+                    .animation(Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: isWiggling) // Apply wiggling animation
                 Spacer()
             }
             .onAppear {

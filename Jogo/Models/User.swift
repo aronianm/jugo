@@ -15,4 +15,3 @@ struct User: Identifiable, Codable {
         return "\(username)"
     }
 }
-

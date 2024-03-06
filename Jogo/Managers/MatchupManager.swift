@@ -105,7 +105,7 @@ class MatchupManager: ObservableObject {
         guard let url = URL(string: "\(baseURL)/matchups/\(id)") else {
             return
         }
-        var authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
+        let authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -146,7 +146,7 @@ class MatchupManager: ObservableObject {
         guard let url = URL(string: "\(baseURL)/matchups/\(id)") else {
             return
         }
-        var authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
+        let authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
     
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -154,7 +154,7 @@ class MatchupManager: ObservableObject {
         request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
         URLSession.shared.dataTask(with: request) { data, response, error in
             
-            if let error = error {
+            if error != nil {
                 return
             }
 
@@ -162,25 +162,23 @@ class MatchupManager: ObservableObject {
                 return
             }
 
-            do {
-                print("Succesfully deletion")
-            } catch {
-                print("Error \(error)")
-            }
+            
+            print("Succesfully deletion")
+            
         }.resume()
     }
     func refreshMatchups(id: Int){
         guard let url = URL(string: "\(baseURL)/leagues/\(id)/matchups") else {
             return
         }
-        var authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
+        let authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
         URLSession.shared.dataTask(with: request) { data, response, error in
             
-            if let error = error {
+            if(error != nil){
                 return
             }
 
@@ -199,7 +197,7 @@ class MatchupManager: ObservableObject {
 
                 let sum = activeEnergy + standHours + exerciseMinutes
 
-                for (i, matchup) in self.matchups.enumerated() {
+                for (_, matchup) in self.matchups.enumerated() {
                     if(matchup.isActive){
                         guard let url = URL(string: "\(self.baseURL)/leagues/\(id)/matchups/\(matchup.id)/update_scores") else {
                             // Handle the case where the URL is invalid
@@ -259,16 +257,16 @@ class MatchupManager: ObservableObject {
         }.resume()
     }
     func findLeagueMatchup() {
-        guard let url = URL(string: "\(baseURL)/leagues/\(self.leagueId)/matchups") else {
+        guard let url = URL(string: "\(baseURL)/leagues/\(self.leagueId!)/matchups") else {
             return
         }
-        var authToken: String = UserDefaults.standard.string(forKey: "jwt") ?? ""
+        let authToken: String = UserDefaults.standard.string(forKey: "jwt") ?? ""
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
-        
-        URLSession.shared.dataTaskPublisher(for: request)  // Create a publisher
+
+        _ = URLSession.shared.dataTaskPublisher(for: request)  // Create a publisher
             .map(\.data)  // Extract data from the response
             .receive(on: DispatchQueue.main)  // Ensure updates are on the main thread
             .sink(receiveCompletion: { completion in
@@ -304,14 +302,14 @@ class MatchupManager: ObservableObject {
             return
         }
     
-        var authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
+        let authToken:String =  UserDefaults.standard.string(forKey: "jwt") ?? ""
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
         URLSession.shared.dataTask(with: request) { data, response, error in
             
-            if let error = error {
+            if(error != nil){
                 return
             }
 

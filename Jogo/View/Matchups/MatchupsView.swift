@@ -53,13 +53,13 @@ struct MatchupsView: View {
                 }
                
             }
-        }.padding(5).border(Color.black, width: 1).refreshable {
-            matchupManager.findLeagueMatchup()
-          }
-        .task {
-            matchupManager.findLeagueMatchup()
+        }.onAppear {
+            matchupManager.findLeagueMatchup(leagueId: id)
             loading = false
 
-        }
+        }.padding(5).border(Color.black, width: 1).refreshable {
+            matchupManager.findLeagueMatchup(leagueId: id)
+          }
+        
     }
 }

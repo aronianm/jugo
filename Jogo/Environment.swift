@@ -46,7 +46,7 @@ enum Environment {
         } else if (configuration.appConfiguration == .TestFlight) {
             return "http://michaels-macbook-air.local:3001"
         } else {
-            return "http://production.fogo-fitness.com"
+            return "http://michaels-macbook-air.local:3001"
         }
     }
 }

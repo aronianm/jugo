@@ -19,6 +19,7 @@ struct Matchup: Codable, Identifiable {
     var currentUser:Int?
     
     
+    
     // Function to round a float to two decimal places and return it as a string
     private func roundedScore(_ score: Double) -> String {
         return String(format: "%.2f", score)

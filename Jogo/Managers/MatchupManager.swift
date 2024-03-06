@@ -31,7 +31,7 @@ class MatchupManager: ObservableObject {
 
     init(leagueId: Int) {
         self.leagueId = leagueId
-        findLeagueMatchup()
+        findLeagueMatchup(leagueId: leagueId)
     }
 
     
@@ -254,31 +254,41 @@ class MatchupManager: ObservableObject {
             }
         }.resume()
     }
-    func findLeagueMatchup() {
-        guard let leagueId = self.leagueId, let url = URL(string: "\(baseURL)/leagues/\(leagueId)/matchups") else {
+    
+    func findLeagueMatchup(leagueId: Int) {
+        guard let url = URL(string: "\(baseURL)/leagues/\(leagueId)/matchups") else {
             return
         }
-        let authToken: String = UserDefaults.standard.string(forKey: "jwt") ?? ""
+        let authToken = UserDefaults.standard.string(forKey: "jwt") ?? ""
+        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("\(authToken)", forHTTPHeaderField: "Authorization")
-
-        _ = URLSession.shared.dataTaskPublisher(for: request)  // Create a publisher
-            .map(\.data)  // Extract data from the response
-            .receive(on: DispatchQueue.main)  // Ensure updates are on the main thread
-            .sink(receiveCompletion: { completion in
-                // Handle completion (if needed)
-            }, receiveValue: { [weak self] data in
-                // Decode the received data and update matchups
-                do {
-                    let decodedMatchups = try JSONDecoder().decode([Matchup].self, from: data)
-                    self?.matchups = decodedMatchups
-                } catch {
-                    print("Error \(error)")
-                }
-            })// Store the cancellable
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            print("Running")
+            
+//                if let error = error {
+//                    return
+//                }
+            
+            guard let data = data else {
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let decodedMatchup = try decoder.decode([Matchup].self, from: data)
+                self.matchups = decodedMatchup
+                
+            } catch {
+                print("Error \(error)")
+            }
+        }.resume()
+        
     }
+
     func findMobileNumber(in phoneNumbers: [CNLabeledValue<CNPhoneNumber>]) -> String? {
         for phoneNumber in phoneNumbers {
             let label = phoneNumber.label ?? ""

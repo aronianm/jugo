@@ -10,7 +10,7 @@ import SwiftUI
 struct AppView: View {
     @StateObject var gameCenterManager: GameCenterManager
 
-    @ObservedObject var leagueManager: LeagueManager = LeagueManager()
+    @StateObject var leagueManager: LeagueManager = LeagueManager()
     
     @State private var selectedOption = 0
     @State private var showDropdown = false

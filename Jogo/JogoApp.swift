@@ -36,7 +36,7 @@ struct FogoApp: App {
             }
             .onAppear {
                 // Show splash screen for 2 seconds before transitioning to main content
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     withAnimation {
                         splashScreenOffsetY = -UIScreen.main.bounds.height // Slide up
                     }

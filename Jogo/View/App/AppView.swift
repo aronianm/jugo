@@ -24,61 +24,25 @@ struct AppView: View {
         NavigationView {
             VStack {
                     VStack{
-                        if(leagueManager.leagues.count == 0 && (showCode == false && showCreateLeague == false)){
-                            Text("Welcome to Fogo")
-                                .foregroundColor(ColorTheme.white)
-                                .font(.title)
-                            VStack{
-                                    Text("""
-                                    Click on 'Create a League' and start competing against users
-                                    
-                                    
-                                    Click on 'Join a League' and paste the code from an existing league to join
-                                    """)
-                                        .lineLimit(nil).multilineTextAlignment(.leading)
-                                    
-                                }
-                                .padding()
-                                .foregroundColor(ColorTheme.white)
-                                .background(ColorTheme.accent)
-                                .cornerRadius(10)
-                                .padding()
-                            HStack{
-                                Spacer()
-                                Button(action: {
-                                    showCreateLeague = true
-                                    showCode = false
-                                }) {
-                                    Text("Create a League")
-                                        .padding()
-                                        .background(ColorTheme.secondary)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(8)
-                                }
-                                .padding()
-                                
-                                Button(action: {
-                                    showCreateLeague = false
-                                    showCode = true
-                                }) {
-                                    Text("Join a League")
-                                        .padding()
-                                        .background(ColorTheme.primary)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(8)
-                                }
-                                .padding()
-                                Spacer()
-                            }
+                        if(showCode){
+                            CodeLeagueView(leagueManager: leagueManager, showCode: $showCode)
+                        }else if(showCreateLeague){
+                            CreateLeagueView(leagueManager: leagueManager, showCreateLeague: $showCreateLeague)
                         }else{
-                            if(showCode){
-                                CodeLeagueView(leagueManager: leagueManager, showCode: $showCode)
-                            }else if(showCreateLeague){
-                                CreateLeagueView(leagueManager: leagueManager, showCreateLeague: $showCreateLeague)
-                            }else{
-                                LeagueListView(leagueManager: leagueManager).refreshable {
-                                    leagueManager.getLeagues()
-                                }
+                            if(leagueManager.leagues.count == 0){
+                                VStack{
+                                        Text("""
+                                        Click on 'Create a League' and start competing against users
+                                        
+                                        
+                                        Click on 'Join a League' and paste the code from an existing league to join
+                                        """)
+                                            .lineLimit(nil).multilineTextAlignment(.leading)
+                                        
+                                    }
+                            }
+                            LeagueListView(leagueManager: leagueManager).refreshable {
+                                leagueManager.getLeagues()
                             }
                         }
                     }.onAppear {
@@ -155,35 +119,7 @@ struct AppView: View {
                         .frame(width: 50, height: 50)
                         .padding()
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack {
-                        Text("Logout")
-                    }
-                    .foregroundColor(.red) // Use a bold color for logout
-                    .onTapGesture {
-                        isLogoutAlertPresented = true
-                    }
-                }
             }
-            .alert(isPresented: $isLogoutAlertPresented) {
-                Alert(
-                    title: Text("Logout"),
-                    message: Text("Are you sure you want to log out?"),
-                    primaryButton: .destructive(
-                        Text("Logout")
-                            .foregroundColor(.white),
-                        action: {
-                            // Handle logout action
-                            gameCenterManager.isAuthenticated = false
-                        }
-                    ),
-                    secondaryButton: .cancel(
-                        Text("Cancel")
-                            .foregroundColor(.blue)
-                    )
-                )
-            
-            }.background(ColorTheme.background)
         }
     }
 

@@ -56,7 +56,7 @@ struct LeagueView: View {
     }
 
     func getCurrentLeagueMatchup() {
-        guard let leagueId = matchupManager.leagueId else { return }
-        matchupManager.refreshMatchups(id: leagueId)
+        matchupManager.refreshMatchups(id: league.id)
+        
     }
 }
